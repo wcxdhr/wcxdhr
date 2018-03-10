@@ -956,22 +956,21 @@ article .article-content em code {
   padding: 0 5px;
   margin: 0 2px;
   font-size: 90%;
-  white-space: nowrap;
   text-shadow: 0 1px #fff;
 }
-article .article-content p {
+article word-wrap break-word p {
   font-size: 105%;
   line-height: 1.7;
   margin: 0.7em 0;
 }
 @media only screen and (min-width: 1024px) {
-  article .article-content p {
+  article word-wrap break-word p {
     margin: 1.2em 0;
   }
 }
-article .article-content img,
-article .article-content video,
-article .article-content figure img {
+article word-wrap break-word img,
+article word-wrap break-word video,
+article word-wrap break-word figure img {
   max-width: 100%;
   display: block;
   margin: auto;
@@ -980,28 +979,28 @@ article .article-content figure img {
   padding-top: 0.5em;
 }
 @media only screen and (min-width: 1024px) {
-  article .article-content img,
-  article .article-content video,
-  article .article-content figure img {
+  article word-wrap break-word img,
+  article word-wrap break-word video,
+  article word-wrap break-word figure img {
     padding-top: 0.7em;
   }
 }
-article .article-content figcaption,
-article .article-content .caption {
+article word-wrap break-word figcaption,
+article word-wrap break-word .caption {
   text-align: center;
   display: block;
   font-size: 0.9em;
   font-weight: blod;
 }
-article .article-content .video-container {
+article word-wrap break-word .video-container {
   position: relative;
   padding-top: 56%;
   height: 0;
   overflow: hidden;
 }
-article .article-content .video-container iframe,
-article .article-content .video-container object,
-article .article-content .video-container embed {
+article word-wrap break-word .video-container iframe,
+article word-wrap break-word .video-container object,
+article word-wrap break-word .video-container embed {
   position: absolute;
   top: 0;
   left: 0;
@@ -1009,32 +1008,32 @@ article .article-content .video-container embed {
   height: 100%;
   margin-top: 0;
 }
-article .article-content table {
+article word-wrap break-word table {
   width: 100%;
   border-collapse: collapse;
   border-spacing: 0;
 }
-article .article-content table th {
+article word-wrap break-word table th {
   font-weight: bold;
   border-bottom: 3px solid #dbdbdb;
   padding-bottom: 0.5em;
 }
-article .article-content table td {
+article word-wrap break-word table td {
   border-bottom: 1px solid #dbdbdb;
   padding: 10px 0;
 }
-article .article-content .pullquote {
+article word-wrap break-word .pullquote {
   text-align: left;
   width: 45%;
   margin: 0;
   border: none;
 }
-article .article-content .left {
+article word-wrap break-word .left {
   margin-left: 0.5em;
   margin-right: 1em;
   float: left;
 }
-article .article-content .right {
+article word-wrap break-word .right {
   margin-right: 0.5em;
   margin-left: 1em;
   float: right;
