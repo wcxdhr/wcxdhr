@@ -249,6 +249,898 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/13/Java读书笔记系列-第7章-异常、断言和日志/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="WCXDHR">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WCXDHR Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/13/Java读书笔记系列-第7章-异常、断言和日志/" itemprop="url">Java读书笔记系列 第7章 异常、断言和日志</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-13T20:44:25+08:00">
+                2019-03-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java核心技术卷Ⅰ读书笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">Java核心技术卷Ⅰ读书笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="第7章-异常、断言和日志"><a href="#第7章-异常、断言和日志" class="headerlink" title="第7章 异常、断言和日志"></a>第7章 异常、断言和日志</h1><h2 id="7-1-处理错误"><a href="#7-1-处理错误" class="headerlink" title="7.1 处理错误"></a>7.1 处理错误</h2><h3 id="7-1-1-异常分类"><a href="#7-1-1-异常分类" class="headerlink" title="7.1.1 异常分类"></a>7.1.1 异常分类</h3><p><img src="1552293327061.png" alt=""></p>
+<ul>
+<li>Error类：Java运行时系统的内部错误和资源耗尽错误。应用程序不应该抛出。</li>
+<li>Exception类：</li>
+<li><ul>
+<li>RuntimeException：由于程序错误导致的异常。有以下情况</li>
+<li><ul>
+<li>错误的类型转换。</li>
+<li>数组访问越界。</li>
+<li>访问null指针。</li>
+</ul>
+</li>
+<li>IOException：程序本身没有问题，但由于像I/O错误这类问题导致的异常属于其他异常。</li>
+<li><ul>
+<li>试图在文件尾部后面读取数据。</li>
+<li>试图打开一个不存在的文件。</li>
+<li>试图根据给定的字符串查找Class对象，而这个字符串表示的类并不存在。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>“如果出现RuntimeException异常，那一定就是你的问题”</strong>是一条相当有道理的规则。</p>
+<p>Java语言规范将派生于Error类或RuntimeException类的所有异常称为<strong>非受查异常</strong>，所有其他的异常称为<strong>受查异常</strong>。编译器将核查是否为所有的受查异常提供了异常处理器。</p>
+<h3 id="7-1-2-声明受查异常"><a href="#7-1-2-声明受查异常" class="headerlink" title="7.1.2 声明受查异常"></a>7.1.2 声明受查异常</h3><p>如果遇到了无法处理的情况，那么Java的方法可以抛出一个异常。一个方法不仅需要告诉编译器将要返回什么值，<strong>还要告诉编译器有可能发生什么错误</strong>。</p>
+<p>方法应该在其首部声明所有可能抛出的异常。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">FileInputStream</span><span class="params">(String name)</span> <span class="keyword">throws</span> FileNotFoundException</span></span><br></pre></td></tr></table></figure>
+<p>在下面4种情况下应该抛出异常：</p>
+<ul>
+<li>调用一个抛出受查异常的方法，例如，FileInputStream构造器。</li>
+<li>程序运行过程中发现错误，并且利用throw语句抛出一个受查异常。</li>
+<li>程序出现错误，例如，a[-1]=0会抛出一个ArrayIndexOutBoundsException这样的非受查异常。</li>
+<li>Java虚拟机和运行库出现的内部错误。</li>
+</ul>
+<h3 id="7-1-3-如何抛出异常"><a href="#7-1-3-如何抛出异常" class="headerlink" title="7.1.3 如何抛出异常"></a>7.1.3 如何抛出异常</h3><p>对于一个已经存在的类，将其抛出步骤如下：</p>
+<ul>
+<li>找到一个合适的异常类</li>
+<li>创建这个类的一个对象</li>
+<li>将对象抛出</li>
+</ul>
+<h2 id="7-2-捕获异常"><a href="#7-2-捕获异常" class="headerlink" title="7.2 捕获异常"></a>7.2 捕获异常</h2><h3 id="7-2-1-捕获异常"><a href="#7-2-1-捕获异常" class="headerlink" title="7.2.1 捕获异常"></a>7.2.1 捕获异常</h3><p>要想捕获异常，必须设置try/catch语句块，如果在try语句块中的任何代码抛出了一个在catch子句中说明的异常类，那么：</p>
+<ul>
+<li>程序将跳过try语句块的其余代码。</li>
+<li>程序将执行catch子句中的处理器代买。</li>
+</ul>
+<p>传递异常：在方法声明后throws IOException。</p>
+<p><strong>应该捕获那些知道如何处理的异常，而将那些不知道怎样处理的异常继续进行传递。</strong></p>
+<h3 id="7-2-4-finally子句"><a href="#7-2-4-finally子句" class="headerlink" title="7.2.4 finally子句"></a>7.2.4 finally子句</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">InputStream in = <span class="keyword">new</span> FileInputStream(...);</span><br><span class="line"><span class="keyword">try</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//1</span></span><br><span class="line">    ...</span><br><span class="line">   	<span class="comment">//2</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">catch</span> (IOException e)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//3</span></span><br><span class="line">    ...</span><br><span class="line">   	<span class="comment">//4</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">finally</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//5</span></span><br><span class="line">    in.close();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//6</span></span><br></pre></td></tr></table></figure>
+<p>以上代码，在3种情况下会执行finally子句：</p>
+<ul>
+<li><p>代码没有抛出异常。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>-<span class="keyword">finally</span><span class="comment">//执行1-2-5-6</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>抛出一个在catch子句中捕获的异常。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>-<span class="keyword">catch</span>-<span class="keyword">finally</span><span class="comment">//执行1-3-4-5-6</span></span><br><span class="line"><span class="comment">//若catch子句抛出异常，异常会被抛回这个方法的调用者，执行1-3-5</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>代码抛出一个异常但这个异常不是由catch子句捕获的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>-<span class="keyword">finally</span><span class="comment">//执行1-5</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>try语句可以只有finally子句，没有catch子句。</p>
+<h3 id="7-2-5-带资源的try语句"><a href="#7-2-5-带资源的try语句" class="headerlink" title="7.2.5 带资源的try语句"></a>7.2.5 带资源的try语句</h3><p>带资源的try语句最简形式为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> (Resource res = ...)</span><br><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>try块退出时，会自动调用res.close()。</p>
+<h2 id="7-3-使用异常机制的技巧"><a href="#7-3-使用异常机制的技巧" class="headerlink" title="7.3 使用异常机制的技巧"></a>7.3 使用异常机制的技巧</h2><ul>
+<li><p>异常处理不能代替简单的测试</p>
+<p>与执行简单的测试相比，捕获异常所花费的世间大大超过了前者，使用异常的基本规则是：只在异常情况下使用异常机制。</p>
+</li>
+<li><p>不要过分细化异常</p>
+</li>
+<li><p>利用异常层次结构</p>
+<p>不要只抛出RuntimeException异常。应该寻找更加适当的子类或创建自己的异常类。</p>
+<p>不要只捕获Thowable异常，否则会使代码更难读、更难维护。‘</p>
+<p>考虑受查异常和非受查异常的区别。已检查异常本来就很庞大，不要为逻辑错误抛出这些异常。</p>
+</li>
+<li><p>不要压制异常</p>
+<p>书上这里看不懂，不知道在讲什么。</p>
+<p>网上查阅结果：</p>
+<p>不要在catch子句中压制异常（例如在子句中return null），如果不知道如何处理异常，最好将异常重新抛出，由上层决定如何处理异常。</p>
+</li>
+<li><p>在检测错误时，“苛刻”要比放任更好</p>
+</li>
+<li><p>不要羞于传递异常</p>
+</li>
+</ul>
+<p>注：最后两条归纳为<strong>早抛出，晚捕获“</strong></p>
+<h2 id="7-4-使用断言"><a href="#7-4-使用断言" class="headerlink" title="7.4 使用断言"></a>7.4 使用断言</h2><p>在一个具有自我保护能力的程序中，断言很常用。</p>
+<p>断言机制允许在测试期间向代码中插入一些检查语句。当代码发布时，这些插入的检测语句会被自动移走。</p>
+<p>Java语言引入了关键字assert。这个关键字有两种形式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">assert</span> 条件;</span><br><span class="line"><span class="keyword">assert</span> 条件 : 表达式;</span><br></pre></td></tr></table></figure>
+<p>如果结果为false，则抛出一个AssertionError异常。第二种形式中，表达式将被传入AssertionError的构造器，并转换成一个消息字符串。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//以下代码断言x是一个非负数值</span></span><br><span class="line"><span class="keyword">assert</span> x =&gt; <span class="number">0</span>;</span><br><span class="line"><span class="comment">//或传给AssertionError</span></span><br><span class="line"><span class="keyword">assert</span> x &gt;= <span class="number">0</span> : x;</span><br></pre></td></tr></table></figure>
+<h3 id="7-4-2-启用和禁用断言"><a href="#7-4-2-启用和禁用断言" class="headerlink" title="7.4.2 启用和禁用断言"></a>7.4.2 启用和禁用断言</h3><p>在默认情况下，断言被禁用。可以在运行程序时用-enableassertions或-ea选项启用。</p>
+<h3 id="7-4-3-使用断言完成参数检查"><a href="#7-4-3-使用断言完成参数检查" class="headerlink" title="7.4.3 使用断言完成参数检查"></a>7.4.3 使用断言完成参数检查</h3><p>在Java语言中，给出了3种处理系统错误的机制：</p>
+<ul>
+<li>抛出一个异常</li>
+<li>日志</li>
+<li>使用断言</li>
+</ul>
+<p>使用断言要注意以下几点：</p>
+<ul>
+<li>断言失败是致命的、不可恢复的错误。</li>
+<li>断言检查只用于开发和测阶段。</li>
+</ul>
+<h2 id="7-5-记录日志"><a href="#7-5-记录日志" class="headerlink" title="7.5 记录日志"></a>7.5 记录日志</h2><p>记录日志API的优点：</p>
+<ul>
+<li>可以很容易地取消全部日志记录，或者仅仅取消某个级别的日志，而且打开和关闭这个操作也很容易。</li>
+<li>可以很简单地禁止日志记录地输出，因此，将这些日志代码留在程序中开销很小。</li>
+<li>日志记录可以被定向到不同的处理器，用于在控制台显示，用于存储在文件中等。</li>
+<li>日志记录器和处理器都可以对日志进行过滤。过滤器可以根据过滤实现器制定的标准丢弃那些无用地记录项。</li>
+<li>日志记录可以采用不同的方法格式化，例如，纯文本或XML。</li>
+<li>应用程序可以使用多个日志记录器，它们使用类似包名地这种具有层次结构的名字。</li>
+<li>在默认情况下，日志系统的配置由配置文件控制。如果需要的话，应用程序可以替换这个配置。</li>
+</ul>
+<h3 id="7-5-2-高级日志"><a href="#7-5-2-高级日志" class="headerlink" title="7.5.2 高级日志"></a>7.5.2 高级日志</h3><p>调用getLogger方法创建或获取记录器：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger myLogger = Logger.getLogger(<span class="string">"com.mycompany.myapp"</span>);</span><br></pre></td></tr></table></figure>
+<p>日志记录器有7个级别：</p>
+<ul>
+<li>SEVERE</li>
+<li>WARNING</li>
+<li>INFO</li>
+<li>CONFIG</li>
+<li>FINE</li>
+<li>FINER</li>
+<li>FINEST</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">logger.setLevel(Level.FINE);<span class="comment">//FINE和更高级别的记录都可以记录下来。</span></span><br></pre></td></tr></table></figure>
+<h3 id="7-5-8-日志记录说明"><a href="#7-5-8-日志记录说明" class="headerlink" title="7.5.8 日志记录说明"></a>7.5.8 日志记录说明</h3><p>以下是一些最常用的操作：</p>
+<ul>
+<li>为一个简单的应用程序，选择一个日志记录器，并把日志记录器命名为与主应用程序包一样的名字，这是一种好的编程习惯。</li>
+<li>默认的日志配置将级别等于或高于INFO级别的所有消息记录到控制台。用户可以覆盖默认的配置文件。但改变需要做相当多的工作，因此，最好在应用程序中安装一个更加适宜的默认配置。</li>
+<li>由于等于或高于INFO级别的消息都显示在控制台上，最好只将对程序用户有意义的消息设置为这几个级别，将程序员想要的日志记录设定为FINE是一个很好的选择。</li>
+</ul>
+<h2 id="7-6-调试技巧"><a href="#7-6-调试技巧" class="headerlink" title="7.6 调试技巧"></a>7.6 调试技巧</h2><ul>
+<li><p>可以用下面的方法打印或记录任意变量的值：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(<span class="string">"x="</span> + x);</span><br><span class="line"><span class="comment">//或</span></span><br><span class="line">Logger.getGlobal().info(<span class="string">"x="</span> + x);</span><br></pre></td></tr></table></figure>
+<p>若x是一个数值，则会被转换成等价的字符串。若x是一个对象，则Java会调用这个对象的toString方法。</p>
+</li>
+<li><p>一个有效技巧是在每一个类中放置一个单独的main方法，用以对每个类进行单元测试。</p>
+</li>
+<li><p>JUnit是一个非常常见的单元测试框架。</p>
+</li>
+<li><p>日志代理是一个子类的对象，它可以截获方法调用，并进行日志记录，然后调用超类中的方法。</p>
+</li>
+<li><p>利用Throwable类提供的printStackTrace方法，可以从任何一个异常对象中获得堆栈情况。</p>
+</li>
+<li><p>一般来说，堆栈轨迹显示在System.err上。也可以利用printStackTrace(PrintWriter s)方法将它发送到一个文件中。</p>
+</li>
+</ul>
+<p>后续省略。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/13/Java读书笔记系列-第6章-接口、lambda表达式与内部类/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="WCXDHR">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WCXDHR Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/13/Java读书笔记系列-第6章-接口、lambda表达式与内部类/" itemprop="url">Java读书笔记系列 第6章 接口、lambda表达式与内部类</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-13T20:44:02+08:00">
+                2019-03-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java核心技术卷Ⅰ读书笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">Java核心技术卷Ⅰ读书笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="第6章-接口、lambda表达式与内部类"><a href="#第6章-接口、lambda表达式与内部类" class="headerlink" title="第6章 接口、lambda表达式与内部类"></a>第6章 接口、lambda表达式与内部类</h1><h2 id="6-1-接口"><a href="#6-1-接口" class="headerlink" title="6.1 接口"></a>6.1 接口</h2><p>接口技术用来描述类具有什么功能，并不给出每个功能的具体实现。一个类可以实现一个或多个接口，并在需要的地方，随时使用实现了相应接口的的对象。</p>
+<p>接口中的所有方法自动地属于public。因此，在接口中声明方法时，不必提供关键字public。<strong>在实现接口时，必须把方法声明为public</strong> </p>
+<p>接口绝不能含有实例域——接口没有实例。但接口中可以包含常量（public static final constant)。接口可以被扩展。</p>
+<p>提供实例域和方法实现的任务应该由实现接口的那个类来完成。可以将接口看成没有实例域的抽象类。</p>
+<p>为了让类实现一个接口，通常需要下面两个步骤：</p>
+<ul>
+<li>将类声明为实现给定的接口</li>
+<li>对接口中的所有方法进行定义</li>
+</ul>
+<h3 id="6-1-3-接口与抽象类"><a href="#6-1-3-接口与抽象类" class="headerlink" title="6.1.3 接口与抽象类"></a>6.1.3 接口与抽象类</h3><p>每个类只能继承一个类（C++的多重继承会让语言本身变得非常复杂），但每个类可以实现多个接口。</p>
+<p>接口可以提供多重继承的大多数好处，同时还能避免多重继承的复杂性和低效性。</p>
+<h3 id="6-1-6-默认方法冲突"><a href="#6-1-6-默认方法冲突" class="headerlink" title="6.1.6 默认方法冲突"></a>6.1.6 默认方法冲突</h3><p>如果先在一个接口中将一个方法定义为默认方法，然后又在超类或另一个接口中定义了同样的方法，规则如下：</p>
+<ul>
+<li>超类优先。如果超类提供了一个具体方法，同名而且有相同的参数类型的默认方法会被忽略。</li>
+<li>接口冲突。如果一个超接口提供了一个默认方法，另一个接口提供了一个同名而且参数类型（不论是否默认参数）相同的方法，必须覆盖这个方法来解决冲突。</li>
+</ul>
+<h2 id="6-3-lambda（λ）表达式"><a href="#6-3-lambda（λ）表达式" class="headerlink" title="6.3 lambda（λ）表达式"></a>6.3 lambda（λ）表达式</h2><h3 id="6-3-2-lambda表达式语法"><a href="#6-3-2-lambda表达式语法" class="headerlink" title="6.3.2 lambda表达式语法"></a>6.3.2 lambda表达式语法</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(String first, String second)</span><br><span class="line">	-&gt; first.lengthh() - second.length()</span><br></pre></td></tr></table></figure>
+<p>以上是一种lambda表达式形式：参数，箭头（-&gt;)以及一个表达式。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(String first, String second) -&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (first.length() &lt; second.length()) <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (first.length() &gt; second.length()) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上，可将表达式变为方法，放在一个代码块中。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">() -&gt; &#123;...&#125;</span><br></pre></td></tr></table></figure>
+<p>没有参数时，仍然要提供空括号。</p>
+<p>如果可以推导出一个lambda表达式的参数类型，则可以忽略其类型；如果方法只有一个参数，而且这个参数类型可以推导得出，则还可以省略()。</p>
+<p>无需指定lambda表达式的返回类型。lambda表达式的返回类型总是会由上下文推导得出。</p>
+<h3 id="6-3-3-函数式接口"><a href="#6-3-3-函数式接口" class="headerlink" title="6.3.3 函数式接口"></a>6.3.3 函数式接口</h3><p>对于只有一个抽象方法的接口，当需要这种接口的对象时，就可以提供lambda表达式。这种接口称为函数式接口。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Arrays.sort(words,</span><br><span class="line">           (first, second) -&gt; first.length() - second.length());</span><br></pre></td></tr></table></figure>
+<p>Arrays.sort的第二个参数需要一个Comparator实例，在这里提供一个lambda表达式。</p>
+<p>在底层，Arrays.sort方法会接收实现了Comparator<string>的某个类的对象。在这个对象上调用compare方法会执行这个lambda表达式的体。</string></p>
+<p>在Java中，lambda表达式只能转换为函数式接口。</p>
+<h3 id="6-3-4-方法引用"><a href="#6-3-4-方法引用" class="headerlink" title="6.3.4 方法引用"></a>6.3.4 方法引用</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Timer t = <span class="keyword">new</span> Timer(<span class="number">1000</span>, event -&gt; System.out.println(event));</span><br><span class="line"><span class="comment">//出现一个定时器事件就打印这个事件对象</span></span><br><span class="line">Timer t = newTimer(<span class="number">1000</span>, System.out::println);</span><br><span class="line"><span class="comment">//System.out::println为一个方法引用，等价于x -&gt; System.out.println(x)</span></span><br></pre></td></tr></table></figure>
+<p><em>注：第四节内部类后未看</em> </p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/13/Java读书笔记系列-第5章-继承/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="WCXDHR">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WCXDHR Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/13/Java读书笔记系列-第5章-继承/" itemprop="url">Java读书笔记系列 第5章 继承</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-13T20:43:34+08:00">
+                2019-03-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java核心技术卷Ⅰ读书笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">Java核心技术卷Ⅰ读书笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="第5章-继承"><a href="#第5章-继承" class="headerlink" title="第5章 继承"></a>第5章 继承</h1><h2 id="5-1-类、超类和子类"><a href="#5-1-类、超类和子类" class="headerlink" title="5.1 类、超类和子类"></a>5.1 类、超类和子类</h2><p>通过扩展超类定义子类时，只需指出子类与超类的不同之处。</p>
+<p>使用关键字super调用超类。</p>
+<p>一个对象变量可以指示多种实际类型的现象被称为<strong>多态</strong>。</p>
+<p>在运行时能够自动地选择调用哪个方法的现象称为<strong>动态绑定</strong>。</p>
+<p><strong>动态绑定的重要特性</strong>：无需对现存的代码进行修改，就可以对程序进行扩展。不需要重新编译。</p>
+<h3 id="5-1-7-阻止继承：final类和方法"><a href="#5-1-7-阻止继承：final类和方法" class="headerlink" title="5.1.7 阻止继承：final类和方法"></a>5.1.7 阻止继承：final类和方法</h3><p>final类不允许被扩展，final方法不能被覆盖。</p>
+<h3 id="5-1-8-强制类型转换"><a href="#5-1-8-强制类型转换" class="headerlink" title="5.1.8 强制类型转换"></a>5.1.8 强制类型转换</h3><p>将超类的引用赋给一个子类变量，必须进行类型转换。</p>
+<ul>
+<li>只能在继承层次内进行类型转换。</li>
+<li>在将超类转换为子类之前，应该使用instanceof进行检查。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (staff[<span class="number">1</span>] <span class="keyword">instanceof</span> Manager) &#123;</span><br><span class="line">    boss = (Manager) staff[<span class="number">1</span>];</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//instanceof:通过返回一个布尔值来指出，这个对象是否是这个特定类或者是它的子类的一个实例</span></span><br></pre></td></tr></table></figure>
+<p>在一般情况下，应该减少使用类型转换和instanceof运算符。</p>
+<h3 id="5-1-9-抽象类"><a href="#5-1-9-抽象类" class="headerlink" title="5.1.9 抽象类"></a>5.1.9 抽象类</h3><p>包含一个或多个抽象方法的类必须被声明为抽象的。</p>
+<p>抽象类可以不含有抽象方法。</p>
+<h3 id="5-1-10-受保护访问"><a href="#5-1-10-受保护访问" class="headerlink" title="5.1.10 受保护访问"></a>5.1.10 受保护访问</h3><p>Java用于控制可见性的4个访问修饰符：</p>
+<ul>
+<li>仅对本类可见-private</li>
+<li>对所有类可见-public</li>
+<li>对本包和所有子类可见-protected</li>
+<li>对本包可见-默认，不需要修饰符</li>
+</ul>
+<h2 id="5-2-Object：所有类的超类"><a href="#5-2-Object：所有类的超类" class="headerlink" title="5.2 Object：所有类的超类"></a>5.2 Object：所有类的超类</h2><h3 id="5-2-4-toString方法"><a href="#5-2-4-toString方法" class="headerlink" title="5.2.4 toString方法"></a>5.2.4 toString方法</h3><p>toString方法用于返回表示对象值的字符串。</p>
+<p>只要对象与一个字符串通过操作符“+”连接起来，Java编译会自动调用toString方法，以获得该对象的字符串描述。</p>
+<p>toString方法是一种非常有用的调试工具。</p>
+<h2 id="5-3-泛型数组列表"><a href="#5-3-泛型数组列表" class="headerlink" title="5.3 泛型数组列表"></a>5.3 泛型数组列表</h2><p>ArrayList是一个采用类型参数的泛型类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;Employee&gt; staff = <span class="keyword">new</span> ArrayList&lt;&gt;();<span class="comment">//声明和构造一个保存Employee对象的数组列表</span></span><br></pre></td></tr></table></figure>
+<h2 id="5-6-枚举类"><a href="#5-6-枚举类" class="headerlink" title="5.6 枚举类"></a>5.6 枚举类</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Size &#123; SMALL, MEDIUM, LARGE, EXTRA_LARGE &#125;;</span><br></pre></td></tr></table></figure>
+<p>这个声明定义的类型是一个类，它有四个实例。</p>
+<h2 id="5-7-反射"><a href="#5-7-反射" class="headerlink" title="5.7 反射"></a>5.7 反射</h2><p>能够分析类能力的程序称为<strong>反射</strong>。</p>
+<p>反射机制用来：</p>
+<ul>
+<li>在运行时分析类的能力</li>
+<li>在运行时查看对象，例如，编写一个toString方法供所有类使用。</li>
+<li>实现通用的数组操作代码</li>
+<li>利用Method对象，这个对象很像C++中的函数指针</li>
+</ul>
+<h3 id="5-7-1-Class类"><a href="#5-7-1-Class类" class="headerlink" title="5.7.1 Class类"></a>5.7.1 Class类</h3><p>程序运行时，Java运行时系统为所有对象维护一个被称为运行时的类型标识。这个信息跟踪着每个对象所属的类。</p>
+<p>保存这些信息的类为Class， Object类中的getClass()将返回一个Class类型的实例。</p>
+<p>获得Class类对象的三种方法：</p>
+<ul>
+<li><p>Object类的getClass()</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Employee e;</span><br><span class="line">Class cl = e.getClass();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>静态方法forName获得类名对应的Class对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String className = <span class="string">"java.util.Random"</span>;</span><br><span class="line">Class cl = Class.forName(className);<span class="comment">//要求className是类名或接口名</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>T.class(T为任意的Java类型)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Class cl1 = <span class="keyword">int</span>.class;</span><br><span class="line">Class cl2 = Double[].class;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="5-7-2-捕获异常"><a href="#5-7-2-捕获异常" class="headerlink" title="5.7.2 捕获异常"></a>5.7.2 捕获异常</h3><p>异常有两种类型：未检查异常和已检查异常。</p>
+<p>未检查异常尽量避免。</p>
+<p>对于已检查异常，编译器会检查是否提供了处理器。将可能抛出已检查异常的方法调用代码放在try块中，然后在catch子句中提供处理器代码。</p>
+<h3 id="5-7-3-利用反射分析类的能力"><a href="#5-7-3-利用反射分析类的能力" class="headerlink" title="5.7.3 利用反射分析类的能力"></a>5.7.3 利用反射分析类的能力</h3><p>java.lang.reflection中有这三个类：</p>
+<ul>
+<li>Field 描述类的域</li>
+<li>Method 描述类的方法</li>
+<li>Constructor 描述类的构造器</li>
+</ul>
+<p>这三个类通用：</p>
+<ul>
+<li>getName方法，返回项目名称</li>
+<li>getModifiers方法，返回整数值，用不同的位开关描述public和static这样的修饰符使用情况。</li>
+</ul>
+<h3 id="5-7-6-调用任意方法"><a href="#5-7-6-调用任意方法" class="headerlink" title="5.7.6 调用任意方法"></a>5.7.6 调用任意方法</h3><p>Method类的invoke方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Object <span class="title">invoke</span><span class="params">(Object obj, Object... args)</span></span></span><br></pre></td></tr></table></figure>
+<p>第一个参数是隐式参数，其余对象提供显式参数，对于静态方法，第一个参数可以被忽略，设置为null。</p>
+<p>eg：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String n = (String) m1.invoke(harry);</span><br><span class="line"><span class="comment">//m1表示Employee类的getName方法，这条语句调用该方法</span></span><br></pre></td></tr></table></figure>
+<p>使用反射获得方法指针比仅仅直接调用方法更慢。</p>
+<h2 id="5-8-继承设计技巧"><a href="#5-8-继承设计技巧" class="headerlink" title="5.8 继承设计技巧"></a>5.8 继承设计技巧</h2><ul>
+<li><p>将公共操作和域放在超类</p>
+</li>
+<li><p>不要使用受保护的域</p>
+<p>一般不要使用，除protected方法对于指示那些不提供一般用途而应在子类中重新定义的方法很有用。</p>
+</li>
+<li><p>在覆盖方法时，不要改变预期的行为</p>
+</li>
+<li><p>使用多态，而非类型信息（方法参数类型不同）</p>
+</li>
+<li><p>不要过多地使用反射</p>
+<p>反射机制对于编写系统程序的人来说极其实用，但通常不适于编写应用程序。</p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/13/Java读书笔记系列-第4章-对象与类/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="WCXDHR">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WCXDHR Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/13/Java读书笔记系列-第4章-对象与类/" itemprop="url">Java读书笔记系列 第4章 对象与类</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-13T20:40:18+08:00">
+                2019-03-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java核心技术卷Ⅰ读书笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">Java核心技术卷Ⅰ读书笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="第4章-对象与类"><a href="#第4章-对象与类" class="headerlink" title="第4章 对象与类"></a>第4章 对象与类</h1><h3 id="4-1-4-类之间的关系"><a href="#4-1-4-类之间的关系" class="headerlink" title="4.1.4 类之间的关系"></a>4.1.4 类之间的关系</h3><ul>
+<li><p>依赖（uses-a）</p>
+<p>一个类的方法操纵另一个类的对象，应尽可能减少依赖，<em>让类之间的耦合度最小</em>（Order对象使用Account对象查看信用状态）</p>
+</li>
+<li><p>聚合（has-a）</p>
+<p>类A的对象包含类B的对象（Order对象包含一些Item对象）</p>
+</li>
+<li><p>继承（is-a）</p>
+<p>类A扩展类B，继承类B（RushOrder类继承Order类）</p>
+</li>
+</ul>
+<p><img src="1551258991671.png" alt=""></p>
+<h3 id="4-2-1-对象与对象变量"><a href="#4-2-1-对象与对象变量" class="headerlink" title="4.2.1 对象与对象变量"></a>4.2.1 对象与对象变量</h3><p><strong>对象与对象变量的区别</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Date deadline;<span class="comment">//deadline是对象变量，未指向任何对象</span></span><br></pre></td></tr></table></figure>
+<p>变量deadline不是一个对象，也没有引用对象，必须首先<strong>初始化变量</strong>。 可以使用新构造的对象初始化变量，也可以让变量引用一个已存在的对象（这样两个变量引用同一个对象）</p>
+<p><strong>注：</strong>一个对象变量并没有实际包含一个对象，而仅仅引用一个对象。</p>
+<p>在Java中，任何对象变量的值都是对存储在另一个地方的一个对象的引用。new操作符的返回值也是一个引用。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Date deadline = <span class="keyword">new</span> Date();<span class="comment">//表达式new Date()构造了一个Date类型的对象，并且它的值是对新创建对象的引用。这个引用存储在变量deadline中。</span></span><br></pre></td></tr></table></figure>
+<p><strong>所有的Java对象都是在堆中构造的</strong></p>
+<h3 id="4-3-5-隐式参数与显式参数"><a href="#4-3-5-隐式参数与显式参数" class="headerlink" title="4.3.5 隐式参数与显式参数"></a>4.3.5 隐式参数与显式参数</h3><p>在每一个方法中，关键字this表示隐式参数。</p>
+<h3 id="4-3-6-封装的优点"><a href="#4-3-6-封装的优点" class="headerlink" title="4.3.6 封装的优点"></a>4.3.6 封装的优点</h3><p><strong>不要返回引用可变对象的访问器方法</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Date hireDay;</span><br><span class="line">    ...</span><br><span class="line">        <span class="function"><span class="keyword">public</span> Date <span class="title">getHireDay</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> hireDay;<span class="comment">//Bad 因为Date有一个更改器方法setTime，可以更改对象</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Employee harry = ...;</span><br><span class="line">Date d = harry.getHireDay();</span><br><span class="line"><span class="keyword">double</span> tempTime = <span class="number">10</span> * <span class="number">12345</span>;</span><br><span class="line">d.setTime(d.getTime() - (<span class="keyword">long</span>) tempTime);<span class="comment">//这里d和harry.hireDay引用同一个对象，对象已改变。</span></span><br></pre></td></tr></table></figure>
+<p><img src="1551336870827.png" alt=""></p>
+<p>如果需要返回一个可变数据域的拷贝，应该使用clone。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Date hireDay;</span><br><span class="line">    ...</span><br><span class="line">        <span class="function"><span class="keyword">public</span> Date <span class="title">getHireDay</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (Date) hireDay.clone();<span class="comment">//Ok</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-3-7-基于类的访问权限"><a href="#4-3-7-基于类的访问权限" class="headerlink" title="4.3.7 基于类的访问权限"></a>4.3.7 基于类的访问权限</h3><p>一个方法可以访问<strong>所属类的所有对象的私有数据</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Employee other)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name.equals(other.name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(harry.equals(boss)) ...</span><br></pre></td></tr></table></figure>
+<h3 id="4-3-9-final实例域"><a href="#4-3-9-final实例域" class="headerlink" title="4.3.9 final实例域"></a>4.3.9 final实例域</h3><p>final实例域必须在构建对象时初始化，且之后不会再被修改。</p>
+<h2 id="4-4-静态域"><a href="#4-4-静态域" class="headerlink" title="4.4 静态域"></a>4.4 静态域</h2><p>静态域属于类，不属于任何一个独立的对象。</p>
+<p>静态方法使用情况：</p>
+<ul>
+<li>一个方法不需要要访问对象状态，所需参数都是通过显式提供。</li>
+<li>一个方法只需要访问类的静态域。</li>
+</ul>
+<h2 id="4-5-方法参数"><a href="#4-5-方法参数" class="headerlink" title="4.5 方法参数"></a>4.5 方法参数</h2><p>Java总是按值调用，方法得到的是所有参数值的一个拷贝，不能修改传递给它的任何参数变量的内容。</p>
+<p>方法参数有两种类型：</p>
+<ul>
+<li>基本数据类型（数字、布尔型）</li>
+<li>对象引用</li>
+</ul>
+<p>一个方法不能修改一个基本数据类型的参数，但可以改变对象引用的值。（方法得到的是对象引用的拷贝，对象引用及其拷贝引用同一个对象，可以由此修改所引用的对象状态）</p>
+<p><img src="1551339471365.png" alt=""></p>
+<p>总结Java中方法参数的使用情况：</p>
+<ul>
+<li>一个方法不能修改一个基本数据类型的参数</li>
+<li>一个方法可以改变一个对象参数的状态</li>
+<li>一个方法不能让对象参数引用一个新的对象</li>
+</ul>
+<h2 id="4-7-包"><a href="#4-7-包" class="headerlink" title="4.7 包"></a>4.7 包</h2><p>只能使用*导入一个包：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*<span class="comment">//Ok</span></span><br><span class="line"><span class="keyword">import</span> java.*<span class="comment">//No</span></span><br><span class="line"><span class="keyword">import</span> java.*.*<span class="comment">//No</span></span><br></pre></td></tr></table></figure>
+<p>当要使用两个包内同名的类时，将这个具体的类导入。</p>
+<h2 id="4-9-文档注释"><a href="#4-9-文档注释" class="headerlink" title="4.9 文档注释"></a>4.9 文档注释</h2><h3 id="4-9-2-类注释"><a href="#4-9-2-类注释" class="headerlink" title="4.9.2 类注释"></a>4.9.2 类注释</h3><p>类注释必须放在import语句之后，类定义之前。</p>
+<h3 id="4-9-3-方法注释"><a href="#4-9-3-方法注释" class="headerlink" title="4.9.3 方法注释"></a>4.9.3 方法注释</h3><p>方法注释放在所描述的方法之前。</p>
+<h2 id="4-10-类设计技巧"><a href="#4-10-类设计技巧" class="headerlink" title="4.10 类设计技巧"></a>4.10 类设计技巧</h2><ul>
+<li>一定要保证数据私有（不破坏封装性）</li>
+<li>一定要对数据初始化</li>
+<li>不要在类中使用过多的基本类型（用其他的类代替多个相关的基本类型的使用）</li>
+<li>不是所有的域都需要独立的域访问器和域更改器</li>
+<li>将职责过多的类进行分解</li>
+<li>类名和方法名要能够体现它们的职责</li>
+<li>优先使用不可变的类</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/13/Java读书笔记系列-第3章-Java基本程序设计结构/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1114,293 +2006,13 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/12/UVa-101-The-Blocks-Problem/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="WCXDHR">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WCXDHR Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/12/UVa-101-The-Blocks-Problem/" itemprop="url">UVa 101 - The Blocks Problem</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-12T18:37:21+08:00">
-                2018-03-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/OJ练习/" itemprop="url" rel="index">
-                    <span itemprop="name">OJ练习</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>木块问题，用vector保存木块堆，与书上代码差不多。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn=<span class="number">25</span>+<span class="number">5</span>;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;wood[maxn];</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> &amp;h,<span class="keyword">int</span> &amp;w)</span></span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(w=<span class="number">0</span>;w&lt;n;w++)</span><br><span class="line">	   <span class="keyword">for</span>(h=<span class="number">0</span>;h&lt;wood[w].size();h++)</span><br><span class="line">	      <span class="keyword">if</span>(wood[w][h]==a)<span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">reset</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> w,<span class="keyword">int</span> h)</span></span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=h+<span class="number">1</span>;i&lt;wood[w].size();i++)</span><br><span class="line">	wood[wood[w][i]].push_back(wood[w][i]);</span><br><span class="line">	wood[w].resize(h+<span class="number">1</span>); </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">a_moveto_b</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b,<span class="keyword">int</span> ha,<span class="keyword">int</span> wa,<span class="keyword">int</span> wb)</span></span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=ha;i&lt;wood[wa].size();i++)</span><br><span class="line">	wood[wb].push_back(wood[wa][i]);</span><br><span class="line">	wood[wa].resize(ha);</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="comment">//freopen("data.txt","r",stdin);</span></span><br><span class="line">	<span class="comment">//freopen("dataout.txt","w",stdout);</span></span><br><span class="line">	<span class="keyword">int</span> a,b;</span><br><span class="line">	<span class="built_in">string</span> str1,str2;</span><br><span class="line">	<span class="built_in">cin</span>&gt;&gt;n;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)wood[i].push_back(i);</span><br><span class="line">	<span class="keyword">while</span>(<span class="built_in">cin</span>&gt;&gt;str1&gt;&gt;a&gt;&gt;str2&gt;&gt;b&amp;&amp;str1[<span class="number">0</span>]!=<span class="string">'q'</span>)&#123;</span><br><span class="line">		<span class="keyword">int</span> wa,wb,ha,hb;</span><br><span class="line">		find(a,ha,wa);</span><br><span class="line">		find(b,hb,wb);</span><br><span class="line">		<span class="keyword">if</span>(wa==wb)<span class="keyword">continue</span>;</span><br><span class="line">		<span class="keyword">if</span>(str1[<span class="number">0</span>]==<span class="string">'m'</span>)&#123;</span><br><span class="line">			reset(a,wa,ha);</span><br><span class="line">			<span class="keyword">if</span>(str2[<span class="number">1</span>]==<span class="string">'n'</span>)reset(b,wb,hb);</span><br><span class="line">			a_moveto_b(a,b,ha,wa,wb);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="keyword">if</span>(str2[<span class="number">1</span>]==<span class="string">'n'</span>)reset(b,wb,hb);</span><br><span class="line">			a_moveto_b(a,b,ha,wa,wb);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%d:"</span>,i);</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;wood[i].size();j++)<span class="built_in">printf</span>(<span class="string">" %d"</span>,wood[i][j]);</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/10/uva-1590/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="WCXDHR">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="WCXDHR Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/10/uva-1590/" itemprop="url">Uva 1590</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-10T22:02:12+08:00">
-                2018-03-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/OJ练习/" itemprop="url" rel="index">
-                    <span itemprop="name">OJ练习</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="keyword">int</span> ip[<span class="number">1005</span>][<span class="number">4</span>];</span><br><span class="line"><span class="keyword">char</span> str1[<span class="number">4</span>][<span class="number">9</span>],str2[<span class="number">4</span>][<span class="number">9</span>],mask[<span class="number">4</span>][<span class="number">9</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">minAdr</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> flag=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;<span class="number">4</span>;j++)&#123;</span><br><span class="line">		<span class="keyword">int</span> k=<span class="number">8</span>,temp=ip[i][j];</span><br><span class="line">		<span class="keyword">while</span>(k--)&#123;</span><br><span class="line">			str2[j][k]=temp%<span class="number">2</span>;</span><br><span class="line">			temp=temp&gt;&gt;<span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;<span class="number">4</span>;j++)&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">0</span>;k&lt;<span class="number">8</span>;k++)&#123;</span><br><span class="line">			<span class="keyword">if</span>(!flag)</span><br><span class="line">				<span class="keyword">if</span>(str2[j][k]!=str1[j][k])&#123;</span><br><span class="line">					flag=<span class="number">1</span>;</span><br><span class="line">				&#125;</span><br><span class="line">			<span class="keyword">if</span>(flag)&#123;</span><br><span class="line">				<span class="keyword">if</span>(i)str1[j][k]=mask[j][k]=<span class="number">0</span>;</span><br><span class="line">				<span class="keyword">else</span> str1[j][k]=str2[j][k];</span><br><span class="line">			&#125;	</span><br><span class="line">			</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="comment">//freopen("data.txt","r",stdin);</span></span><br><span class="line">	<span class="comment">//freopen("dataout.txt","w",stdout);</span></span><br><span class="line">	<span class="keyword">int</span> m;</span><br><span class="line">	<span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;m)!=EOF)&#123;	</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;m;i++)&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;<span class="number">4</span>;j++)&#123;</span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;ip[i][j]);</span><br><span class="line">			getchar();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">4</span>;i++)&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;<span class="number">8</span>;j++)&#123;</span><br><span class="line">			str1[i][j]=mask[i][j]=<span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;m;i++)&#123;</span><br><span class="line">		minAdr(i);	</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;<span class="number">4</span>;j++)&#123;</span><br><span class="line">		ip[<span class="number">0</span>][j]=ip[<span class="number">1</span>][j]=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">0</span>;k&lt;<span class="number">8</span>;k++)&#123;</span><br><span class="line">			ip[<span class="number">0</span>][j]+=(str1[j][k]&lt;&lt;(<span class="number">7</span>-k));</span><br><span class="line">			ip[<span class="number">1</span>][j]+=(mask[j][k]&lt;&lt;(<span class="number">7</span>-k));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">2</span>;i++)<span class="built_in">printf</span>(<span class="string">"%d.%d.%d.%d\n"</span>,ip[i][<span class="number">0</span>],ip[i][<span class="number">1</span>],ip[i][<span class="number">2</span>],ip[i][<span class="number">3</span>]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
 
           </div>
@@ -1444,7 +2056,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

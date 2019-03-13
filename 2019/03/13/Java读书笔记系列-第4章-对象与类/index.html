@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="读书笔记," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="第4章 对象与类4.1.4 类之间的关系 依赖（uses-a） 一个类的方法操纵另一个类的对象，应尽可能减少依赖，让类之间的耦合度最小（Order对象使用Account对象查看信用状态）  聚合（has-a） 类A的对象包含类B的对象（Order对象包含一些Item对象）  继承（is-a） 类A扩展类B，继承类B（RushOrder类继承Order类）    4.2.1 对象与对象变量对象与对象">
+<meta name="keywords" content="读书笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java读书笔记系列 第4章 对象与类">
+<meta property="og:url" content="http://yoursite.com/2019/03/13/Java读书笔记系列-第4章-对象与类/index.html">
+<meta property="og:site_name" content="WCXDHR Blog">
+<meta property="og:description" content="第4章 对象与类4.1.4 类之间的关系 依赖（uses-a） 一个类的方法操纵另一个类的对象，应尽可能减少依赖，让类之间的耦合度最小（Order对象使用Account对象查看信用状态）  聚合（has-a） 类A的对象包含类B的对象（Order对象包含一些Item对象）  继承（is-a） 类A扩展类B，继承类B（RushOrder类继承Order类）    4.2.1 对象与对象变量对象与对象">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/03/13/Java读书笔记系列-第4章-对象与类/1551258991671.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/13/Java读书笔记系列-第4章-对象与类/1551336870827.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/13/Java读书笔记系列-第4章-对象与类/1551339471365.png">
+<meta property="og:updated_time" content="2019-03-13T12:47:36.900Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java读书笔记系列 第4章 对象与类">
+<meta name="twitter:description" content="第4章 对象与类4.1.4 类之间的关系 依赖（uses-a） 一个类的方法操纵另一个类的对象，应尽可能减少依赖，让类之间的耦合度最小（Order对象使用Account对象查看信用状态）  聚合（has-a） 类A的对象包含类B的对象（Order对象包含一些Item对象）  继承（is-a） 类A扩展类B，继承类B（RushOrder类继承Order类）    4.2.1 对象与对象变量对象与对象">
+<meta name="twitter:image" content="http://yoursite.com/2019/03/13/Java读书笔记系列-第4章-对象与类/1551258991671.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/13/Java读书笔记系列-第4章-对象与类/"/>
+
+
+
+
+
+  <title>Java读书笔记系列 第4章 对象与类 | WCXDHR Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WCXDHR Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/13/Java读书笔记系列-第4章-对象与类/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="WCXDHR">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WCXDHR Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java读书笔记系列 第4章 对象与类</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-13T20:40:18+08:00">
+                2019-03-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java核心技术卷Ⅰ读书笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">Java核心技术卷Ⅰ读书笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="第4章-对象与类"><a href="#第4章-对象与类" class="headerlink" title="第4章 对象与类"></a>第4章 对象与类</h1><h3 id="4-1-4-类之间的关系"><a href="#4-1-4-类之间的关系" class="headerlink" title="4.1.4 类之间的关系"></a>4.1.4 类之间的关系</h3><ul>
+<li><p>依赖（uses-a）</p>
+<p>一个类的方法操纵另一个类的对象，应尽可能减少依赖，<em>让类之间的耦合度最小</em>（Order对象使用Account对象查看信用状态）</p>
+</li>
+<li><p>聚合（has-a）</p>
+<p>类A的对象包含类B的对象（Order对象包含一些Item对象）</p>
+</li>
+<li><p>继承（is-a）</p>
+<p>类A扩展类B，继承类B（RushOrder类继承Order类）</p>
+</li>
+</ul>
+<p><img src="1551258991671.png" alt=""></p>
+<h3 id="4-2-1-对象与对象变量"><a href="#4-2-1-对象与对象变量" class="headerlink" title="4.2.1 对象与对象变量"></a>4.2.1 对象与对象变量</h3><p><strong>对象与对象变量的区别</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Date deadline;<span class="comment">//deadline是对象变量，未指向任何对象</span></span><br></pre></td></tr></table></figure>
+<p>变量deadline不是一个对象，也没有引用对象，必须首先<strong>初始化变量</strong>。 可以使用新构造的对象初始化变量，也可以让变量引用一个已存在的对象（这样两个变量引用同一个对象）</p>
+<p><strong>注：</strong>一个对象变量并没有实际包含一个对象，而仅仅引用一个对象。</p>
+<p>在Java中，任何对象变量的值都是对存储在另一个地方的一个对象的引用。new操作符的返回值也是一个引用。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Date deadline = <span class="keyword">new</span> Date();<span class="comment">//表达式new Date()构造了一个Date类型的对象，并且它的值是对新创建对象的引用。这个引用存储在变量deadline中。</span></span><br></pre></td></tr></table></figure>
+<p><strong>所有的Java对象都是在堆中构造的</strong></p>
+<h3 id="4-3-5-隐式参数与显式参数"><a href="#4-3-5-隐式参数与显式参数" class="headerlink" title="4.3.5 隐式参数与显式参数"></a>4.3.5 隐式参数与显式参数</h3><p>在每一个方法中，关键字this表示隐式参数。</p>
+<h3 id="4-3-6-封装的优点"><a href="#4-3-6-封装的优点" class="headerlink" title="4.3.6 封装的优点"></a>4.3.6 封装的优点</h3><p><strong>不要返回引用可变对象的访问器方法</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Date hireDay;</span><br><span class="line">    ...</span><br><span class="line">        <span class="function"><span class="keyword">public</span> Date <span class="title">getHireDay</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> hireDay;<span class="comment">//Bad 因为Date有一个更改器方法setTime，可以更改对象</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Employee harry = ...;</span><br><span class="line">Date d = harry.getHireDay();</span><br><span class="line"><span class="keyword">double</span> tempTime = <span class="number">10</span> * <span class="number">12345</span>;</span><br><span class="line">d.setTime(d.getTime() - (<span class="keyword">long</span>) tempTime);<span class="comment">//这里d和harry.hireDay引用同一个对象，对象已改变。</span></span><br></pre></td></tr></table></figure>
+<p><img src="1551336870827.png" alt=""></p>
+<p>如果需要返回一个可变数据域的拷贝，应该使用clone。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Date hireDay;</span><br><span class="line">    ...</span><br><span class="line">        <span class="function"><span class="keyword">public</span> Date <span class="title">getHireDay</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (Date) hireDay.clone();<span class="comment">//Ok</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-3-7-基于类的访问权限"><a href="#4-3-7-基于类的访问权限" class="headerlink" title="4.3.7 基于类的访问权限"></a>4.3.7 基于类的访问权限</h3><p>一个方法可以访问<strong>所属类的所有对象的私有数据</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Employee other)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name.equals(other.name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(harry.equals(boss)) ...</span><br></pre></td></tr></table></figure>
+<h3 id="4-3-9-final实例域"><a href="#4-3-9-final实例域" class="headerlink" title="4.3.9 final实例域"></a>4.3.9 final实例域</h3><p>final实例域必须在构建对象时初始化，且之后不会再被修改。</p>
+<h2 id="4-4-静态域"><a href="#4-4-静态域" class="headerlink" title="4.4 静态域"></a>4.4 静态域</h2><p>静态域属于类，不属于任何一个独立的对象。</p>
+<p>静态方法使用情况：</p>
+<ul>
+<li>一个方法不需要要访问对象状态，所需参数都是通过显式提供。</li>
+<li>一个方法只需要访问类的静态域。</li>
+</ul>
+<h2 id="4-5-方法参数"><a href="#4-5-方法参数" class="headerlink" title="4.5 方法参数"></a>4.5 方法参数</h2><p>Java总是按值调用，方法得到的是所有参数值的一个拷贝，不能修改传递给它的任何参数变量的内容。</p>
+<p>方法参数有两种类型：</p>
+<ul>
+<li>基本数据类型（数字、布尔型）</li>
+<li>对象引用</li>
+</ul>
+<p>一个方法不能修改一个基本数据类型的参数，但可以改变对象引用的值。（方法得到的是对象引用的拷贝，对象引用及其拷贝引用同一个对象，可以由此修改所引用的对象状态）</p>
+<p><img src="1551339471365.png" alt=""></p>
+<p>总结Java中方法参数的使用情况：</p>
+<ul>
+<li>一个方法不能修改一个基本数据类型的参数</li>
+<li>一个方法可以改变一个对象参数的状态</li>
+<li>一个方法不能让对象参数引用一个新的对象</li>
+</ul>
+<h2 id="4-7-包"><a href="#4-7-包" class="headerlink" title="4.7 包"></a>4.7 包</h2><p>只能使用*导入一个包：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*<span class="comment">//Ok</span></span><br><span class="line"><span class="keyword">import</span> java.*<span class="comment">//No</span></span><br><span class="line"><span class="keyword">import</span> java.*.*<span class="comment">//No</span></span><br></pre></td></tr></table></figure>
+<p>当要使用两个包内同名的类时，将这个具体的类导入。</p>
+<h2 id="4-9-文档注释"><a href="#4-9-文档注释" class="headerlink" title="4.9 文档注释"></a>4.9 文档注释</h2><h3 id="4-9-2-类注释"><a href="#4-9-2-类注释" class="headerlink" title="4.9.2 类注释"></a>4.9.2 类注释</h3><p>类注释必须放在import语句之后，类定义之前。</p>
+<h3 id="4-9-3-方法注释"><a href="#4-9-3-方法注释" class="headerlink" title="4.9.3 方法注释"></a>4.9.3 方法注释</h3><p>方法注释放在所描述的方法之前。</p>
+<h2 id="4-10-类设计技巧"><a href="#4-10-类设计技巧" class="headerlink" title="4.10 类设计技巧"></a>4.10 类设计技巧</h2><ul>
+<li>一定要保证数据私有（不破坏封装性）</li>
+<li>一定要对数据初始化</li>
+<li>不要在类中使用过多的基本类型（用其他的类代替多个相关的基本类型的使用）</li>
+<li>不是所有的域都需要独立的域访问器和域更改器</li>
+<li>将职责过多的类进行分解</li>
+<li>类名和方法名要能够体现它们的职责</li>
+<li>优先使用不可变的类</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/读书笔记/" rel="tag"># 读书笔记</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/13/Java读书笔记系列-第3章-Java基本程序设计结构/" rel="next" title="Java读书笔记系列 第3章 Java基本程序设计结构">
+                <i class="fa fa-chevron-left"></i> Java读书笔记系列 第3章 Java基本程序设计结构
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/13/Java读书笔记系列-第5章-继承/" rel="prev" title="Java读书笔记系列 第5章 继承">
+                Java读书笔记系列 第5章 继承 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">WCXDHR</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第4章-对象与类"><span class="nav-number">1.</span> <span class="nav-text">第4章 对象与类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-4-类之间的关系"><span class="nav-number">1.0.1.</span> <span class="nav-text">4.1.4 类之间的关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-1-对象与对象变量"><span class="nav-number">1.0.2.</span> <span class="nav-text">4.2.1 对象与对象变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-5-隐式参数与显式参数"><span class="nav-number">1.0.3.</span> <span class="nav-text">4.3.5 隐式参数与显式参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-6-封装的优点"><span class="nav-number">1.0.4.</span> <span class="nav-text">4.3.6 封装的优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-7-基于类的访问权限"><span class="nav-number">1.0.5.</span> <span class="nav-text">4.3.7 基于类的访问权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-9-final实例域"><span class="nav-number">1.0.6.</span> <span class="nav-text">4.3.9 final实例域</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-4-静态域"><span class="nav-number">1.1.</span> <span class="nav-text">4.4 静态域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-5-方法参数"><span class="nav-number">1.2.</span> <span class="nav-text">4.5 方法参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-7-包"><span class="nav-number">1.3.</span> <span class="nav-text">4.7 包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-9-文档注释"><span class="nav-number">1.4.</span> <span class="nav-text">4.9 文档注释</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-9-2-类注释"><span class="nav-number">1.4.1.</span> <span class="nav-text">4.9.2 类注释</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-9-3-方法注释"><span class="nav-number">1.4.2.</span> <span class="nav-text">4.9.3 方法注释</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-10-类设计技巧"><span class="nav-number">1.5.</span> <span class="nav-text">4.10 类设计技巧</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">WCXDHR</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
