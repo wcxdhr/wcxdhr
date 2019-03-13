@@ -4,21 +4,44 @@
 
     
   <url>
-    <loc>http://yoursite.com/2018/03/20/Bupt-OJ-302-%E7%BD%91%E7%BB%9C%E4%BC%A0%E8%BE%93-%E7%BD%91%E7%A0%9414/</loc>
-    <lastmod>2018-03-20T05:36:09.221Z</lastmod>
+    <loc>http://yoursite.com/2018/03/10/uva-1590/</loc>
+    <lastmod>2019-03-13T09:34:57.229Z</lastmod>
     <data>
         <display>
-        <title>Bupt OJ-302. 网络传输-网研14</title>
-        <pubTime>2018-03-20T05:32:28.000Z</pubTime>
+        <title>Uva 1590</title>
+        <pubTime>2018-03-10T14:02:12.000Z</pubTime>
         
-        <tag>Bupt OJ</tag>
-         
         <tag>Code</tag>
          
         <tag>练习</tag>
          
          
            
+             
+              <breadCrumb title="OJ练习" url="http://yoursite.com/categories/OJ%E7%BB%83%E4%B9%A0/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2018/03/12/UVa-101-The-Blocks-Problem/</loc>
+    <lastmod>2019-03-13T09:34:48.012Z</lastmod>
+    <data>
+        <display>
+        <title>UVa 101 - The Blocks Problem</title>
+        <pubTime>2018-03-12T10:37:21.000Z</pubTime>
+        
+        <tag>Code</tag>
+         
+        <tag>练习</tag>
+         
+         
+           
+             
+              <breadCrumb title="OJ练习" url="http://yoursite.com/categories/OJ%E7%BB%83%E4%B9%A0/"/>
+          
         </display>
     </data>
     </url>
@@ -26,7 +49,7 @@
     
   <url>
     <loc>http://yoursite.com/2018/03/18/Bupt-OJ-306-Python-List-%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%802014/</loc>
-    <lastmod>2018-03-18T11:13:55.140Z</lastmod>
+    <lastmod>2019-03-13T09:34:38.152Z</lastmod>
     <data>
         <display>
         <title>Bupt OJ-306. Python List-计算机一2014</title>
@@ -40,6 +63,9 @@
          
          
            
+             
+              <breadCrumb title="OJ练习" url="http://yoursite.com/categories/OJ%E7%BB%83%E4%B9%A0/"/>
+          
         </display>
     </data>
     </url>
@@ -47,7 +73,7 @@
     
   <url>
     <loc>http://yoursite.com/2018/03/17/Bupt-OJ-305-%E7%BD%91%E7%BB%9C%E7%9A%84%E6%A0%B8-%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%802014/</loc>
-    <lastmod>2018-03-17T14:56:46.299Z</lastmod>
+    <lastmod>2019-03-13T09:34:26.984Z</lastmod>
     <data>
         <display>
         <title>Bupt OJ-305. 网络的核-计算机一2014</title>
@@ -61,6 +87,9 @@
          
          
            
+             
+              <breadCrumb title="OJ练习" url="http://yoursite.com/categories/OJ%E7%BB%83%E4%B9%A0/"/>
+          
         </display>
     </data>
     </url>
@@ -68,7 +97,7 @@
     
   <url>
     <loc>http://yoursite.com/2018/03/17/Bupt-OJ-304-%E6%97%8B%E8%BD%AC%E5%9B%BE%E5%83%8F-%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%802014/</loc>
-    <lastmod>2018-03-17T14:54:01.063Z</lastmod>
+    <lastmod>2019-03-13T09:34:18.732Z</lastmod>
     <data>
         <display>
         <title>Bupt OJ-304. 旋转图像-计算机一2014</title>
@@ -82,6 +111,9 @@
          
          
            
+             
+              <breadCrumb title="OJ练习" url="http://yoursite.com/categories/OJ%E7%BB%83%E4%B9%A0/"/>
+          
         </display>
     </data>
     </url>
@@ -89,7 +121,7 @@
     
   <url>
     <loc>http://yoursite.com/2018/03/17/Bupt-OJ-303-%E4%BC%97%E6%95%B0-%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%802014/</loc>
-    <lastmod>2018-03-17T14:49:53.562Z</lastmod>
+    <lastmod>2019-03-13T09:34:10.460Z</lastmod>
     <data>
         <display>
         <title>Bupt OJ-303. 众数-计算机一2014</title>
@@ -103,46 +135,36 @@
          
          
            
+             
+              <breadCrumb title="OJ练习" url="http://yoursite.com/categories/OJ%E7%BB%83%E4%B9%A0/"/>
+          
         </display>
     </data>
     </url>
 
     
   <url>
-    <loc>http://yoursite.com/2018/03/12/UVa-101-The-Blocks-Problem/</loc>
-    <lastmod>2018-03-17T14:07:25.369Z</lastmod>
+    <loc>http://yoursite.com/2018/03/20/Bupt-OJ-302-%E7%BD%91%E7%BB%9C%E4%BC%A0%E8%BE%93-%E7%BD%91%E7%A0%9414/</loc>
+    <lastmod>2019-03-13T09:33:54.076Z</lastmod>
     <data>
         <display>
-        <title>UVa 101 - The Blocks Problem</title>
-        <pubTime>2018-03-12T10:37:21.000Z</pubTime>
+        <title>Bupt OJ-302. 网络传输-网研14</title>
+        <pubTime>2018-03-20T05:32:28.000Z</pubTime>
         
+        <tag>Bupt OJ</tag>
+         
         <tag>Code</tag>
          
         <tag>练习</tag>
          
          
            
+             
+              <breadCrumb title="OJ练习" url="http://yoursite.com/categories/OJ%E7%BB%83%E4%B9%A0/"/>
+          
         </display>
     </data>
     </url>
 
     
-  <url>
-    <loc>http://yoursite.com/2018/03/10/uva-1590/</loc>
-    <lastmod>2018-03-12T10:38:26.064Z</lastmod>
-    <data>
-        <display>
-        <title>Uva 1590</title>
-        <pubTime>2018-03-10T14:02:12.000Z</pubTime>
-        
-        <tag>Code</tag>
-         
-        <tag>练习</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
 </urlset>
