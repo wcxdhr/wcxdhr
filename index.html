@@ -510,40 +510,16 @@
 
       
         
-          
-            <h1 id="第6章-接口、lambda表达式与内部类"><a href="#第6章-接口、lambda表达式与内部类" class="headerlink" title="第6章 接口、lambda表达式与内部类"></a>第6章 接口、lambda表达式与内部类</h1><h2 id="6-1-接口"><a href="#6-1-接口" class="headerlink" title="6.1 接口"></a>6.1 接口</h2><p>接口技术用来描述类具有什么功能，并不给出每个功能的具体实现。一个类可以实现一个或多个接口，并在需要的地方，随时使用实现了相应接口的的对象。</p>
+          <h1 id="第6章-接口、lambda表达式与内部类"><a href="#第6章-接口、lambda表达式与内部类" class="headerlink" title="第6章 接口、lambda表达式与内部类"></a>第6章 接口、lambda表达式与内部类</h1><h2 id="6-1-接口"><a href="#6-1-接口" class="headerlink" title="6.1 接口"></a>6.1 接口</h2><p>接口技术用来描述类具有什么功能，并不给出每个功能的具体实现。一个类可以实现一个或多个接口，并在需要的地方，随时使用实现了相应接口的的对象。</p>
 <p>接口中的所有方法自动地属于public。因此，在接口中声明方法时，不必提供关键字public。<strong>在实现接口时，必须把方法声明为public</strong> </p>
-<p>接口绝不能含有实例域——接口没有实例。但接口中可以包含常量（public static final constant)。接口可以被扩展。</p>
-<p>提供实例域和方法实现的任务应该由实现接口的那个类来完成。可以将接口看成没有实例域的抽象类。</p>
-<p>为了让类实现一个接口，通常需要下面两个步骤：</p>
-<ul>
-<li>将类声明为实现给定的接口</li>
-<li>对接口中的所有方法进行定义</li>
-</ul>
-<h3 id="6-1-3-接口与抽象类"><a href="#6-1-3-接口与抽象类" class="headerlink" title="6.1.3 接口与抽象类"></a>6.1.3 接口与抽象类</h3><p>每个类只能继承一个类（C++的多重继承会让语言本身变得非常复杂），但每个类可以实现多个接口。</p>
-<p>接口可以提供多重继承的大多数好处，同时还能避免多重继承的复杂性和低效性。</p>
-<h3 id="6-1-6-默认方法冲突"><a href="#6-1-6-默认方法冲突" class="headerlink" title="6.1.6 默认方法冲突"></a>6.1.6 默认方法冲突</h3><p>如果先在一个接口中将一个方法定义为默认方法，然后又在超类或另一个接口中定义了同样的方法，规则如下：</p>
-<ul>
-<li>超类优先。如果超类提供了一个具体方法，同名而且有相同的参数类型的默认方法会被忽略。</li>
-<li>接口冲突。如果一个超接口提供了一个默认方法，另一个接口提供了一个同名而且参数类型（不论是否默认参数）相同的方法，必须覆盖这个方法来解决冲突。</li>
-</ul>
-<h2 id="6-3-lambda（λ）表达式"><a href="#6-3-lambda（λ）表达式" class="headerlink" title="6.3 lambda（λ）表达式"></a>6.3 lambda（λ）表达式</h2><h3 id="6-3-2-lambda表达式语法"><a href="#6-3-2-lambda表达式语法" class="headerlink" title="6.3.2 lambda表达式语法"></a>6.3.2 lambda表达式语法</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(String first, String second)</span><br><span class="line">	-&gt; first.lengthh() - second.length()</span><br></pre></td></tr></table></figure>
-<p>以上是一种lambda表达式形式：参数，箭头（-&gt;)以及一个表达式。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(String first, String second) -&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (first.length() &lt; second.length()) <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (first.length() &gt; second.length()) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>以上，可将表达式变为方法，放在一个代码块中。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">() -&gt; &#123;...&#125;</span><br></pre></td></tr></table></figure>
-<p>没有参数时，仍然要提供空括号。</p>
-<p>如果可以推导出一个lambda表达式的参数类型，则可以忽略其类型；如果方法只有一个参数，而且这个参数类型可以推导得出，则还可以省略()。</p>
-<p>无需指定lambda表达式的返回类型。lambda表达式的返回类型总是会由上下文推导得出。</p>
-<h3 id="6-3-3-函数式接口"><a href="#6-3-3-函数式接口" class="headerlink" title="6.3.3 函数式接口"></a>6.3.3 函数式接口</h3><p>对于只有一个抽象方法的接口，当需要这种接口的对象时，就可以提供lambda表达式。这种接口称为函数式接口。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Arrays.sort(words,</span><br><span class="line">           (first, second) -&gt; first.length() - second.length());</span><br></pre></td></tr></table></figure>
-<p>Arrays.sort的第二个参数需要一个Comparator实例，在这里提供一个lambda表达式。</p>
-<p>在底层，Arrays.sort方法会接收实现了Comparator<string>的某个类的对象。在这个对象上调用compare方法会执行这个lambda表达式的体。</string></p>
-<p>在Java中，lambda表达式只能转换为函数式接口。</p>
-<h3 id="6-3-4-方法引用"><a href="#6-3-4-方法引用" class="headerlink" title="6.3.4 方法引用"></a>6.3.4 方法引用</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Timer t = <span class="keyword">new</span> Timer(<span class="number">1000</span>, event -&gt; System.out.println(event));</span><br><span class="line"><span class="comment">//出现一个定时器事件就打印这个事件对象</span></span><br><span class="line">Timer t = newTimer(<span class="number">1000</span>, System.out::println);</span><br><span class="line"><span class="comment">//System.out::println为一个方法引用，等价于x -&gt; System.out.println(x)</span></span><br></pre></td></tr></table></figure>
-<p><em>注：第四节内部类后未看</em> </p>
-
-          
+<p>接口绝不能含有实例域——接口没有实例。但接口中可以包含常量（public static final constant)。接口可以被扩展。
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/13/Java读书笔记系列-第6章-接口、lambda表达式与内部类/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -682,94 +658,18 @@
 
       
         
-          
-            <h1 id="第5章-继承"><a href="#第5章-继承" class="headerlink" title="第5章 继承"></a>第5章 继承</h1><h2 id="5-1-类、超类和子类"><a href="#5-1-类、超类和子类" class="headerlink" title="5.1 类、超类和子类"></a>5.1 类、超类和子类</h2><p>通过扩展超类定义子类时，只需指出子类与超类的不同之处。</p>
+          <h1 id="第5章-继承"><a href="#第5章-继承" class="headerlink" title="第5章 继承"></a>第5章 继承</h1><h2 id="5-1-类、超类和子类"><a href="#5-1-类、超类和子类" class="headerlink" title="5.1 类、超类和子类"></a>5.1 类、超类和子类</h2><p>通过扩展超类定义子类时，只需指出子类与超类的不同之处。</p>
 <p>使用关键字super调用超类。</p>
 <p>一个对象变量可以指示多种实际类型的现象被称为<strong>多态</strong>。</p>
 <p>在运行时能够自动地选择调用哪个方法的现象称为<strong>动态绑定</strong>。</p>
-<p><strong>动态绑定的重要特性</strong>：无需对现存的代码进行修改，就可以对程序进行扩展。不需要重新编译。</p>
-<h3 id="5-1-7-阻止继承：final类和方法"><a href="#5-1-7-阻止继承：final类和方法" class="headerlink" title="5.1.7 阻止继承：final类和方法"></a>5.1.7 阻止继承：final类和方法</h3><p>final类不允许被扩展，final方法不能被覆盖。</p>
-<h3 id="5-1-8-强制类型转换"><a href="#5-1-8-强制类型转换" class="headerlink" title="5.1.8 强制类型转换"></a>5.1.8 强制类型转换</h3><p>将超类的引用赋给一个子类变量，必须进行类型转换。</p>
-<ul>
-<li>只能在继承层次内进行类型转换。</li>
-<li>在将超类转换为子类之前，应该使用instanceof进行检查。</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (staff[<span class="number">1</span>] <span class="keyword">instanceof</span> Manager) &#123;</span><br><span class="line">    boss = (Manager) staff[<span class="number">1</span>];</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//instanceof:通过返回一个布尔值来指出，这个对象是否是这个特定类或者是它的子类的一个实例</span></span><br></pre></td></tr></table></figure>
-<p>在一般情况下，应该减少使用类型转换和instanceof运算符。</p>
-<h3 id="5-1-9-抽象类"><a href="#5-1-9-抽象类" class="headerlink" title="5.1.9 抽象类"></a>5.1.9 抽象类</h3><p>包含一个或多个抽象方法的类必须被声明为抽象的。</p>
-<p>抽象类可以不含有抽象方法。</p>
-<h3 id="5-1-10-受保护访问"><a href="#5-1-10-受保护访问" class="headerlink" title="5.1.10 受保护访问"></a>5.1.10 受保护访问</h3><p>Java用于控制可见性的4个访问修饰符：</p>
-<ul>
-<li>仅对本类可见-private</li>
-<li>对所有类可见-public</li>
-<li>对本包和所有子类可见-protected</li>
-<li>对本包可见-默认，不需要修饰符</li>
-</ul>
-<h2 id="5-2-Object：所有类的超类"><a href="#5-2-Object：所有类的超类" class="headerlink" title="5.2 Object：所有类的超类"></a>5.2 Object：所有类的超类</h2><h3 id="5-2-4-toString方法"><a href="#5-2-4-toString方法" class="headerlink" title="5.2.4 toString方法"></a>5.2.4 toString方法</h3><p>toString方法用于返回表示对象值的字符串。</p>
-<p>只要对象与一个字符串通过操作符“+”连接起来，Java编译会自动调用toString方法，以获得该对象的字符串描述。</p>
-<p>toString方法是一种非常有用的调试工具。</p>
-<h2 id="5-3-泛型数组列表"><a href="#5-3-泛型数组列表" class="headerlink" title="5.3 泛型数组列表"></a>5.3 泛型数组列表</h2><p>ArrayList是一个采用类型参数的泛型类。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;Employee&gt; staff = <span class="keyword">new</span> ArrayList&lt;&gt;();<span class="comment">//声明和构造一个保存Employee对象的数组列表</span></span><br></pre></td></tr></table></figure>
-<h2 id="5-6-枚举类"><a href="#5-6-枚举类" class="headerlink" title="5.6 枚举类"></a>5.6 枚举类</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> Size &#123; SMALL, MEDIUM, LARGE, EXTRA_LARGE &#125;;</span><br></pre></td></tr></table></figure>
-<p>这个声明定义的类型是一个类，它有四个实例。</p>
-<h2 id="5-7-反射"><a href="#5-7-反射" class="headerlink" title="5.7 反射"></a>5.7 反射</h2><p>能够分析类能力的程序称为<strong>反射</strong>。</p>
-<p>反射机制用来：</p>
-<ul>
-<li>在运行时分析类的能力</li>
-<li>在运行时查看对象，例如，编写一个toString方法供所有类使用。</li>
-<li>实现通用的数组操作代码</li>
-<li>利用Method对象，这个对象很像C++中的函数指针</li>
-</ul>
-<h3 id="5-7-1-Class类"><a href="#5-7-1-Class类" class="headerlink" title="5.7.1 Class类"></a>5.7.1 Class类</h3><p>程序运行时，Java运行时系统为所有对象维护一个被称为运行时的类型标识。这个信息跟踪着每个对象所属的类。</p>
-<p>保存这些信息的类为Class， Object类中的getClass()将返回一个Class类型的实例。</p>
-<p>获得Class类对象的三种方法：</p>
-<ul>
-<li><p>Object类的getClass()</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Employee e;</span><br><span class="line">Class cl = e.getClass();</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>静态方法forName获得类名对应的Class对象</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String className = <span class="string">"java.util.Random"</span>;</span><br><span class="line">Class cl = Class.forName(className);<span class="comment">//要求className是类名或接口名</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>T.class(T为任意的Java类型)</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Class cl1 = <span class="keyword">int</span>.class;</span><br><span class="line">Class cl2 = Double[].class;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="5-7-2-捕获异常"><a href="#5-7-2-捕获异常" class="headerlink" title="5.7.2 捕获异常"></a>5.7.2 捕获异常</h3><p>异常有两种类型：未检查异常和已检查异常。</p>
-<p>未检查异常尽量避免。</p>
-<p>对于已检查异常，编译器会检查是否提供了处理器。将可能抛出已检查异常的方法调用代码放在try块中，然后在catch子句中提供处理器代码。</p>
-<h3 id="5-7-3-利用反射分析类的能力"><a href="#5-7-3-利用反射分析类的能力" class="headerlink" title="5.7.3 利用反射分析类的能力"></a>5.7.3 利用反射分析类的能力</h3><p>java.lang.reflection中有这三个类：</p>
-<ul>
-<li>Field 描述类的域</li>
-<li>Method 描述类的方法</li>
-<li>Constructor 描述类的构造器</li>
-</ul>
-<p>这三个类通用：</p>
-<ul>
-<li>getName方法，返回项目名称</li>
-<li>getModifiers方法，返回整数值，用不同的位开关描述public和static这样的修饰符使用情况。</li>
-</ul>
-<h3 id="5-7-6-调用任意方法"><a href="#5-7-6-调用任意方法" class="headerlink" title="5.7.6 调用任意方法"></a>5.7.6 调用任意方法</h3><p>Method类的invoke方法：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Object <span class="title">invoke</span><span class="params">(Object obj, Object... args)</span></span></span><br></pre></td></tr></table></figure>
-<p>第一个参数是隐式参数，其余对象提供显式参数，对于静态方法，第一个参数可以被忽略，设置为null。</p>
-<p>eg：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String n = (String) m1.invoke(harry);</span><br><span class="line"><span class="comment">//m1表示Employee类的getName方法，这条语句调用该方法</span></span><br></pre></td></tr></table></figure>
-<p>使用反射获得方法指针比仅仅直接调用方法更慢。</p>
-<h2 id="5-8-继承设计技巧"><a href="#5-8-继承设计技巧" class="headerlink" title="5.8 继承设计技巧"></a>5.8 继承设计技巧</h2><ul>
-<li><p>将公共操作和域放在超类</p>
-</li>
-<li><p>不要使用受保护的域</p>
-<p>一般不要使用，除protected方法对于指示那些不提供一般用途而应在子类中重新定义的方法很有用。</p>
-</li>
-<li><p>在覆盖方法时，不要改变预期的行为</p>
-</li>
-<li><p>使用多态，而非类型信息（方法参数类型不同）</p>
-</li>
-<li><p>不要过多地使用反射</p>
-<p>反射机制对于编写系统程序的人来说极其实用，但通常不适于编写应用程序。</p>
-</li>
-</ul>
-
-          
+<p><strong>动态绑定的重要特性</strong>：无需对现存的代码进行修改，就可以对程序进行扩展。不需要重新编译。
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/13/Java读书笔记系列-第5章-继承/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -908,8 +808,7 @@
 
       
         
-          
-            <h1 id="第4章-对象与类"><a href="#第4章-对象与类" class="headerlink" title="第4章 对象与类"></a>第4章 对象与类</h1><h3 id="4-1-4-类之间的关系"><a href="#4-1-4-类之间的关系" class="headerlink" title="4.1.4 类之间的关系"></a>4.1.4 类之间的关系</h3><ul>
+          <h1 id="第4章-对象与类"><a href="#第4章-对象与类" class="headerlink" title="第4章 对象与类"></a>第4章 对象与类</h1><h3 id="4-1-4-类之间的关系"><a href="#4-1-4-类之间的关系" class="headerlink" title="4.1.4 类之间的关系"></a>4.1.4 类之间的关系</h3><ul>
 <li><p>依赖（uses-a）</p>
 <p>一个类的方法操纵另一个类的对象，应尽可能减少依赖，<em>让类之间的耦合度最小</em>（Order对象使用Account对象查看信用状态）</p>
 </li>
@@ -917,62 +816,14 @@
 <p>类A的对象包含类B的对象（Order对象包含一些Item对象）</p>
 </li>
 <li><p>继承（is-a）</p>
-<p>类A扩展类B，继承类B（RushOrder类继承Order类）</p>
-</li>
-</ul>
-<p><img src="1551258991671.png" alt=""></p>
-<h3 id="4-2-1-对象与对象变量"><a href="#4-2-1-对象与对象变量" class="headerlink" title="4.2.1 对象与对象变量"></a>4.2.1 对象与对象变量</h3><p><strong>对象与对象变量的区别</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Date deadline;<span class="comment">//deadline是对象变量，未指向任何对象</span></span><br></pre></td></tr></table></figure>
-<p>变量deadline不是一个对象，也没有引用对象，必须首先<strong>初始化变量</strong>。 可以使用新构造的对象初始化变量，也可以让变量引用一个已存在的对象（这样两个变量引用同一个对象）</p>
-<p><strong>注：</strong>一个对象变量并没有实际包含一个对象，而仅仅引用一个对象。</p>
-<p>在Java中，任何对象变量的值都是对存储在另一个地方的一个对象的引用。new操作符的返回值也是一个引用。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Date deadline = <span class="keyword">new</span> Date();<span class="comment">//表达式new Date()构造了一个Date类型的对象，并且它的值是对新创建对象的引用。这个引用存储在变量deadline中。</span></span><br></pre></td></tr></table></figure>
-<p><strong>所有的Java对象都是在堆中构造的</strong></p>
-<h3 id="4-3-5-隐式参数与显式参数"><a href="#4-3-5-隐式参数与显式参数" class="headerlink" title="4.3.5 隐式参数与显式参数"></a>4.3.5 隐式参数与显式参数</h3><p>在每一个方法中，关键字this表示隐式参数。</p>
-<h3 id="4-3-6-封装的优点"><a href="#4-3-6-封装的优点" class="headerlink" title="4.3.6 封装的优点"></a>4.3.6 封装的优点</h3><p><strong>不要返回引用可变对象的访问器方法</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Date hireDay;</span><br><span class="line">    ...</span><br><span class="line">        <span class="function"><span class="keyword">public</span> Date <span class="title">getHireDay</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> hireDay;<span class="comment">//Bad 因为Date有一个更改器方法setTime，可以更改对象</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Employee harry = ...;</span><br><span class="line">Date d = harry.getHireDay();</span><br><span class="line"><span class="keyword">double</span> tempTime = <span class="number">10</span> * <span class="number">12345</span>;</span><br><span class="line">d.setTime(d.getTime() - (<span class="keyword">long</span>) tempTime);<span class="comment">//这里d和harry.hireDay引用同一个对象，对象已改变。</span></span><br></pre></td></tr></table></figure>
-<p><img src="1551336870827.png" alt=""></p>
-<p>如果需要返回一个可变数据域的拷贝，应该使用clone。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Date hireDay;</span><br><span class="line">    ...</span><br><span class="line">        <span class="function"><span class="keyword">public</span> Date <span class="title">getHireDay</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (Date) hireDay.clone();<span class="comment">//Ok</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="4-3-7-基于类的访问权限"><a href="#4-3-7-基于类的访问权限" class="headerlink" title="4.3.7 基于类的访问权限"></a>4.3.7 基于类的访问权限</h3><p>一个方法可以访问<strong>所属类的所有对象的私有数据</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Employee other)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name.equals(other.name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(harry.equals(boss)) ...</span><br></pre></td></tr></table></figure>
-<h3 id="4-3-9-final实例域"><a href="#4-3-9-final实例域" class="headerlink" title="4.3.9 final实例域"></a>4.3.9 final实例域</h3><p>final实例域必须在构建对象时初始化，且之后不会再被修改。</p>
-<h2 id="4-4-静态域"><a href="#4-4-静态域" class="headerlink" title="4.4 静态域"></a>4.4 静态域</h2><p>静态域属于类，不属于任何一个独立的对象。</p>
-<p>静态方法使用情况：</p>
-<ul>
-<li>一个方法不需要要访问对象状态，所需参数都是通过显式提供。</li>
-<li>一个方法只需要访问类的静态域。</li>
-</ul>
-<h2 id="4-5-方法参数"><a href="#4-5-方法参数" class="headerlink" title="4.5 方法参数"></a>4.5 方法参数</h2><p>Java总是按值调用，方法得到的是所有参数值的一个拷贝，不能修改传递给它的任何参数变量的内容。</p>
-<p>方法参数有两种类型：</p>
-<ul>
-<li>基本数据类型（数字、布尔型）</li>
-<li>对象引用</li>
-</ul>
-<p>一个方法不能修改一个基本数据类型的参数，但可以改变对象引用的值。（方法得到的是对象引用的拷贝，对象引用及其拷贝引用同一个对象，可以由此修改所引用的对象状态）</p>
-<p><img src="1551339471365.png" alt=""></p>
-<p>总结Java中方法参数的使用情况：</p>
-<ul>
-<li>一个方法不能修改一个基本数据类型的参数</li>
-<li>一个方法可以改变一个对象参数的状态</li>
-<li>一个方法不能让对象参数引用一个新的对象</li>
-</ul>
-<h2 id="4-7-包"><a href="#4-7-包" class="headerlink" title="4.7 包"></a>4.7 包</h2><p>只能使用*导入一个包：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*<span class="comment">//Ok</span></span><br><span class="line"><span class="keyword">import</span> java.*<span class="comment">//No</span></span><br><span class="line"><span class="keyword">import</span> java.*.*<span class="comment">//No</span></span><br></pre></td></tr></table></figure>
-<p>当要使用两个包内同名的类时，将这个具体的类导入。</p>
-<h2 id="4-9-文档注释"><a href="#4-9-文档注释" class="headerlink" title="4.9 文档注释"></a>4.9 文档注释</h2><h3 id="4-9-2-类注释"><a href="#4-9-2-类注释" class="headerlink" title="4.9.2 类注释"></a>4.9.2 类注释</h3><p>类注释必须放在import语句之后，类定义之前。</p>
-<h3 id="4-9-3-方法注释"><a href="#4-9-3-方法注释" class="headerlink" title="4.9.3 方法注释"></a>4.9.3 方法注释</h3><p>方法注释放在所描述的方法之前。</p>
-<h2 id="4-10-类设计技巧"><a href="#4-10-类设计技巧" class="headerlink" title="4.10 类设计技巧"></a>4.10 类设计技巧</h2><ul>
-<li>一定要保证数据私有（不破坏封装性）</li>
-<li>一定要对数据初始化</li>
-<li>不要在类中使用过多的基本类型（用其他的类代替多个相关的基本类型的使用）</li>
-<li>不是所有的域都需要独立的域访问器和域更改器</li>
-<li>将职责过多的类进行分解</li>
-<li>类名和方法名要能够体现它们的职责</li>
-<li>优先使用不可变的类</li>
-</ul>
-
-          
+<p>类A扩展类B，继承类B（RushOrder类继承Order类）
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/13/Java读书笔记系列-第4章-对象与类/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1111,29 +962,19 @@
 
       
         
-          
-            <h1 id="第3章-Java基本程序设计结构"><a href="#第3章-Java基本程序设计结构" class="headerlink" title="第3章 Java基本程序设计结构"></a>第3章 Java基本程序设计结构</h1><h3 id="3-5-2"><a href="#3-5-2" class="headerlink" title="3.5.2"></a>3.5.2</h3><p>Math.round：四舍五入（返回long类型）</p>
+          <h1 id="第3章-Java基本程序设计结构"><a href="#第3章-Java基本程序设计结构" class="headerlink" title="第3章 Java基本程序设计结构"></a>第3章 Java基本程序设计结构</h1><h3 id="3-5-2"><a href="#3-5-2" class="headerlink" title="3.5.2"></a>3.5.2</h3><p>Math.round：四舍五入（返回long类型）</p>
 <h2 id="3-6-字符串"><a href="#3-6-字符串" class="headerlink" title="3.6  字符串"></a>3.6  字符串</h2><p>substring方法：提取子串</p>
 <p>+：连接</p>
 <p>String类对象：不可变字符串（修改字符串变量以引用另一个字符串），优点：编译器让字符串共享</p>
 <p>equals方法：判断字符串是否相等（equalsIgnoreCase:不区分大小写）</p>
-<p><strong>注</strong> ：==只能确定字符串是否放在同一个位置上（必然相等）</p>
-<h3 id="3-6-5-空串与Null串"><a href="#3-6-5-空串与Null串" class="headerlink" title="3.6.5 空串与Null串"></a>3.6.5 空串与Null串</h3><p>空串长度为0，Null串str==null</p>
-<h3 id="3-6-9-构建字符串"><a href="#3-6-9-构建字符串" class="headerlink" title="3.6.9 构建字符串"></a>3.6.9 构建字符串</h3><p>StringBuilder类：字符串构建器，适用于由较短的字符串构建字符串。</p>
-<h2 id="3-8"><a href="#3-8" class="headerlink" title="3.8"></a>3.8</h2><h3 id="3-8-6"><a href="#3-8-6" class="headerlink" title="3.8.6"></a>3.8.6</h3><p>带标签的break语句：跳出多重循环</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">read_data:</span><br><span class="line"><span class="keyword">while</span>()</span><br><span class="line">&#123;</span><br><span class="line">  ...</span><br><span class="line">    <span class="keyword">break</span> read_data;</span><br><span class="line">	<span class="comment">//跳出read_data所标记的循环  </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="3-9-大数值"><a href="#3-9-大数值" class="headerlink" title="3.9 大数值"></a>3.9 大数值</h2><p>BigInteger </p>
-<p>BigDecimal</p>
-<h2 id="3-10-数组"><a href="#3-10-数组" class="headerlink" title="3.10 数组"></a>3.10 数组</h2><p><strong>初始值</strong></p>
-<p>数字数组：0</p>
-<p>布尔型数组：false</p>
-<p>对象数组：null</p>
-<p><strong>for each 循环</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (variable : collection) statement</span><br><span class="line"><span class="comment">//example a:数组或实现了Iterable接口的类对象</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> element : a)</span><br><span class="line">    System.out.println(element);</span><br></pre></td></tr></table></figure>
-<h3 id="3-10-3-数组拷贝"><a href="#3-10-3-数组拷贝" class="headerlink" title="3.10.3 数组拷贝"></a>3.10.3 数组拷贝</h3><p>一个数组变量拷贝给另一个数组变量：两个变量引用同一个数组</p>
-<p><img src="1551256677685.png" alt=""></p>
-
-          
+<p><strong>注</strong> ：==只能确定字符串是否放在同一个位置上（必然相等）
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/13/Java读书笔记系列-第3章-Java基本程序设计结构/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1419,12 +1260,15 @@
 
       
         
-          
-            <p><img src="273.png" alt=""></p>
-<p>思路：利用vector和map配合进行模拟即可。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>; </span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;a[<span class="number">100</span>];</span><br><span class="line"><span class="built_in">map</span>&lt;<span class="built_in">string</span>,<span class="keyword">int</span>&gt;b;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="comment">//freopen("data.txt","r",stdin);</span></span><br><span class="line">	<span class="keyword">int</span> T;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;T);</span><br><span class="line">	<span class="keyword">while</span>(T--)&#123;</span><br><span class="line">		<span class="keyword">int</span> n,cnt=<span class="number">0</span>;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">		getchar();</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">		    a[i].clear();</span><br><span class="line">		b.clear();</span><br><span class="line">		<span class="keyword">while</span>(n--)&#123;</span><br><span class="line">			<span class="keyword">char</span> c;</span><br><span class="line">			<span class="built_in">string</span> line,snum,opp;</span><br><span class="line">			<span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%c"</span>,&amp;c)&amp;&amp;c!=<span class="string">'='</span>&amp;&amp;c!=<span class="string">'.'</span>&amp;&amp;c!=<span class="string">'['</span>)<span class="comment">//得到List名 </span></span><br><span class="line">			   snum.insert(snum.end(),<span class="number">1</span>,c);</span><br><span class="line">			<span class="keyword">if</span>(c==<span class="string">'='</span>)&#123;<span class="comment">//清空 </span></span><br><span class="line">				<span class="keyword">if</span>(!b.count(snum))b[snum]=cnt++;</span><br><span class="line">				<span class="keyword">else</span> a[b[snum]].clear();</span><br><span class="line">				getline(<span class="built_in">cin</span>,line);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span>(c==<span class="string">'.'</span>)&#123;</span><br><span class="line">				<span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%c"</span>,&amp;c)&amp;&amp;c!=<span class="string">'('</span>)</span><br><span class="line">				opp.insert(opp.end(),<span class="number">1</span>,c);</span><br><span class="line">				<span class="keyword">if</span>(opp[<span class="number">0</span>]==<span class="string">'a'</span>)&#123;<span class="comment">//插入 </span></span><br><span class="line">					<span class="keyword">int</span> x;</span><br><span class="line">					<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;x);</span><br><span class="line">					a[b[snum]].push_back(x);</span><br><span class="line">					</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span> &#123;<span class="comment">//排序 </span></span><br><span class="line">					sort(a[b[snum]].begin(),a[b[snum]].end());		</span><br><span class="line">				&#125;</span><br><span class="line">				getline(<span class="built_in">cin</span>,line);	</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span> &#123;<span class="comment">//查找 </span></span><br><span class="line">				<span class="keyword">int</span> x;</span><br><span class="line">				<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;x);</span><br><span class="line">				<span class="keyword">if</span>(x&lt;a[b[snum]].size())<span class="built_in">printf</span>(<span class="string">"%d\n"</span>,a[b[snum]][x]);</span><br><span class="line">				<span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">"ERROR\n"</span>);	</span><br><span class="line">				getline(<span class="built_in">cin</span>,line);	</span><br><span class="line">			&#125;	</span><br><span class="line">		&#125;	</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
+          <p><img src="273.png" alt=""></p>
+<p>思路：利用vector和map配合进行模拟即可。
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/03/18/Bupt-OJ-306-Python-List-计算机一2014/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1563,11 +1407,14 @@
 
       
         
-          
-            <p><img src="272.png" alt=""></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt; </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> a[<span class="number">55</span>][<span class="number">55</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">dijkstra</span><span class="params">(<span class="keyword">int</span> i,<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> v[<span class="number">55</span>];</span><br><span class="line">	<span class="built_in">memset</span>(v,<span class="number">0</span>,<span class="keyword">sizeof</span>(v));</span><br><span class="line">	<span class="keyword">int</span> d[<span class="number">55</span>];</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=n;j++)</span><br><span class="line">	    d[j]=j==i?<span class="number">0</span>:n*n;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=n;j++)&#123;</span><br><span class="line">		<span class="keyword">int</span> x,m=n*n;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">1</span>;k&lt;=n;k++)<span class="keyword">if</span>(!v[k]&amp;&amp;d[k]&lt;=m)m=d[x=k];</span><br><span class="line">		v[x]=<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">1</span>;k&lt;=n;k++)d[k]=min(d[k],d[x]+a[x][k]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> ans=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=n;j++)</span><br><span class="line">	    ans+=d[j];</span><br><span class="line">	<span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="comment">//freopen("data.txt","r",stdin);</span></span><br><span class="line">	<span class="keyword">int</span> T;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;T);</span><br><span class="line">	<span class="keyword">while</span>(T--)&#123;</span><br><span class="line">		<span class="keyword">int</span> n,m;</span><br><span class="line">		<span class="keyword">int</span> ans[<span class="number">55</span>]=&#123;<span class="number">0</span>&#125;;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=n;j++)</span><br><span class="line">			    a[i][j]=n;</span><br><span class="line">			a[i][i]=<span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">while</span>(m--)&#123;</span><br><span class="line">			<span class="keyword">int</span> u,v;</span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;u,&amp;v);</span><br><span class="line">			a[v][u]=a[u][v]=<span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">			ans[i]=dijkstra(i,n);</span><br><span class="line">		<span class="keyword">int</span> best=<span class="number">1</span>,mini=n*n;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">			<span class="keyword">if</span>(ans[i]&lt;mini)&#123;</span><br><span class="line">				mini=ans[i];</span><br><span class="line">				best=i;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d\n"</span>,best);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
+          <p><img src="272.png" alt=""></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/03/17/Bupt-OJ-305-网络的核-计算机一2014/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1706,11 +1553,14 @@
 
       
         
-          
-            <p><img src="271.png" alt=""></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt; </span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> a[<span class="number">55</span>][<span class="number">55</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	freopen(<span class="string">"data.txt"</span>,<span class="string">"r"</span>,<span class="built_in">stdin</span>);</span><br><span class="line">	<span class="keyword">int</span> T;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;T);</span><br><span class="line">	<span class="keyword">while</span>(T--)&#123;</span><br><span class="line">		<span class="keyword">int</span> n,m,al;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">			getchar();</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;m;j++)</span><br><span class="line">			    <span class="built_in">scanf</span>(<span class="string">"%c"</span>,&amp;a[i][j]);</span><br><span class="line">			</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;al);</span><br><span class="line">		<span class="keyword">if</span>(!al)&#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">				<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;m;j++)</span><br><span class="line">			      <span class="built_in">printf</span>(<span class="string">"%c"</span>,a[i][j]);</span><br><span class="line">			    <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(al==<span class="number">90</span>)&#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;m;j++)&#123;</span><br><span class="line">				<span class="keyword">for</span>(<span class="keyword">int</span> i=n<span class="number">-1</span>;i&gt;=<span class="number">0</span>;i--)</span><br><span class="line">			       <span class="built_in">printf</span>(<span class="string">"%c"</span>,a[i][j]);</span><br><span class="line">			    <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(al==<span class="number">180</span>)&#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i=n<span class="number">-1</span>;i&gt;=<span class="number">0</span>;i--)&#123;</span><br><span class="line">				<span class="keyword">for</span>(<span class="keyword">int</span> j=m<span class="number">-1</span>;j&gt;=<span class="number">0</span>;j--)</span><br><span class="line">				    <span class="built_in">printf</span>(<span class="string">"%c"</span>,a[i][j]);</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j=m<span class="number">-1</span>;j&gt;=<span class="number">0</span>;j--)&#123;</span><br><span class="line">				<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">			        <span class="built_in">printf</span>(<span class="string">"%c"</span>,a[i][j]);</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">			&#125; </span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
+          <p><img src="271.png" alt=""></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/03/17/Bupt-OJ-304-旋转图像-计算机一2014/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1849,11 +1699,14 @@
 
       
         
-          
-            <p><img src="270.png" alt=""></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt; </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;map&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;M;</span><br><span class="line"><span class="keyword">int</span> a[<span class="number">105</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> T;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;T);</span><br><span class="line">	<span class="keyword">while</span>(T--)&#123;</span><br><span class="line">		M.clear();</span><br><span class="line">		<span class="keyword">int</span> n,mini;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;a[i]);</span><br><span class="line">			<span class="keyword">if</span>(!M.count(a[i]))M[a[i]]=<span class="number">0</span>;</span><br><span class="line">			M[a[i]]++;</span><br><span class="line">		&#125;</span><br><span class="line">		mini=a[<span class="number">0</span>];</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;n;i++)&#123;</span><br><span class="line">			<span class="keyword">if</span>(M[a[i]]&gt;M[mini])</span><br><span class="line">			mini=a[i];</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d"</span>,mini);</span><br><span class="line">		<span class="keyword">if</span>(T)<span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
+          <p><img src="270.png" alt=""></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/03/17/Bupt-OJ-303-众数-计算机一2014/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
