@@ -353,28 +353,7 @@
         
           <h1 id="第7章-异常、断言和日志"><a href="#第7章-异常、断言和日志" class="headerlink" title="第7章 异常、断言和日志"></a>第7章 异常、断言和日志</h1><h2 id="7-1-处理错误"><a href="#7-1-处理错误" class="headerlink" title="7.1 处理错误"></a>7.1 处理错误</h2><h3 id="7-1-1-异常分类"><a href="#7-1-1-异常分类" class="headerlink" title="7.1.1 异常分类"></a>7.1.1 异常分类</h3><p><img src="1552293327061.png" alt=""></p>
 <ul>
-<li>Error类：Java运行时系统的内部错误和资源耗尽错误。应用程序不应该抛出。</li>
-<li>Exception类：</li>
-<li><ul>
-<li>RuntimeException：由于程序错误导致的异常。有以下情况</li>
-<li><ul>
-<li>错误的类型转换。</li>
-<li>数组访问越界。</li>
-<li>访问null指针。</li>
-</ul>
-</li>
-<li>IOException：程序本身没有问题，但由于像I/O错误这类问题导致的异常属于其他异常。</li>
-<li><ul>
-<li>试图在文件尾部后面读取数据。</li>
-<li>试图打开一个不存在的文件。</li>
-<li>试图根据给定的字符串查找Class对象，而这个字符串表示的类并不存在。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p><strong>“如果出现RuntimeException异常，那一定就是你的问题”</strong>是一条相当有道理的规则。</p>
-<p>Java语言规范将派生于Error类或RuntimeException类的所有异常称为<strong>非受查异常</strong>，所有其他的异常称为<strong>受查异常</strong>。编译器将核查是否为所有的受查异常提供了异常处理器。
+<li>Error类：Java运行时系统的内部错误和资源耗尽错误。应用程序不应该抛出。
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2019/03/13/Java读书笔记系列-第7章-异常、断言和日志/#more" rel="contents">
@@ -520,9 +499,7 @@
 
       
         
-          <h1 id="第6章-接口、lambda表达式与内部类"><a href="#第6章-接口、lambda表达式与内部类" class="headerlink" title="第6章 接口、lambda表达式与内部类"></a>第6章 接口、lambda表达式与内部类</h1><h2 id="6-1-接口"><a href="#6-1-接口" class="headerlink" title="6.1 接口"></a>6.1 接口</h2><p>接口技术用来描述类具有什么功能，并不给出每个功能的具体实现。一个类可以实现一个或多个接口，并在需要的地方，随时使用实现了相应接口的的对象。</p>
-<p>接口中的所有方法自动地属于public。因此，在接口中声明方法时，不必提供关键字public。<strong>在实现接口时，必须把方法声明为public</strong> </p>
-<p>接口绝不能含有实例域——接口没有实例。但接口中可以包含常量（public static final constant)。接口可以被扩展。
+          <h1 id="第6章-接口、lambda表达式与内部类"><a href="#第6章-接口、lambda表达式与内部类" class="headerlink" title="第6章 接口、lambda表达式与内部类"></a>第6章 接口、lambda表达式与内部类</h1><h2 id="6-1-接口"><a href="#6-1-接口" class="headerlink" title="6.1 接口"></a>6.1 接口</h2><p>接口技术用来描述类具有什么功能，并不给出每个功能的具体实现。一个类可以实现一个或多个接口，并在需要的地方，随时使用实现了相应接口的的对象。
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2019/03/13/Java读书笔记系列-第6章-接口、lambda表达式与内部类/#more" rel="contents">
@@ -669,10 +646,7 @@
       
         
           <h1 id="第5章-继承"><a href="#第5章-继承" class="headerlink" title="第5章 继承"></a>第5章 继承</h1><h2 id="5-1-类、超类和子类"><a href="#5-1-类、超类和子类" class="headerlink" title="5.1 类、超类和子类"></a>5.1 类、超类和子类</h2><p>通过扩展超类定义子类时，只需指出子类与超类的不同之处。</p>
-<p>使用关键字super调用超类。</p>
-<p>一个对象变量可以指示多种实际类型的现象被称为<strong>多态</strong>。</p>
-<p>在运行时能够自动地选择调用哪个方法的现象称为<strong>动态绑定</strong>。</p>
-<p><strong>动态绑定的重要特性</strong>：无需对现存的代码进行修改，就可以对程序进行扩展。不需要重新编译。
+<p>使用关键字super调用超类。
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2019/03/13/Java读书笔记系列-第5章-继承/#more" rel="contents">
@@ -820,13 +794,7 @@
         
           <h1 id="第4章-对象与类"><a href="#第4章-对象与类" class="headerlink" title="第4章 对象与类"></a>第4章 对象与类</h1><h3 id="4-1-4-类之间的关系"><a href="#4-1-4-类之间的关系" class="headerlink" title="4.1.4 类之间的关系"></a>4.1.4 类之间的关系</h3><ul>
 <li><p>依赖（uses-a）</p>
-<p>一个类的方法操纵另一个类的对象，应尽可能减少依赖，<em>让类之间的耦合度最小</em>（Order对象使用Account对象查看信用状态）</p>
-</li>
-<li><p>聚合（has-a）</p>
-<p>类A的对象包含类B的对象（Order对象包含一些Item对象）</p>
-</li>
-<li><p>继承（is-a）</p>
-<p>类A扩展类B，继承类B（RushOrder类继承Order类）
+<p>一个类的方法操纵另一个类的对象，应尽可能减少依赖，<em>让类之间的耦合度最小</em>（Order对象使用Account对象查看信用状态）
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2019/03/13/Java读书笔记系列-第4章-对象与类/#more" rel="contents">
@@ -972,12 +940,7 @@
 
       
         
-          <h1 id="第3章-Java基本程序设计结构"><a href="#第3章-Java基本程序设计结构" class="headerlink" title="第3章 Java基本程序设计结构"></a>第3章 Java基本程序设计结构</h1><h3 id="3-5-2"><a href="#3-5-2" class="headerlink" title="3.5.2"></a>3.5.2</h3><p>Math.round：四舍五入（返回long类型）</p>
-<h2 id="3-6-字符串"><a href="#3-6-字符串" class="headerlink" title="3.6  字符串"></a>3.6  字符串</h2><p>substring方法：提取子串</p>
-<p>+：连接</p>
-<p>String类对象：不可变字符串（修改字符串变量以引用另一个字符串），优点：编译器让字符串共享</p>
-<p>equals方法：判断字符串是否相等（equalsIgnoreCase:不区分大小写）</p>
-<p><strong>注</strong> ：==只能确定字符串是否放在同一个位置上（必然相等）
+          <h1 id="第3章-Java基本程序设计结构"><a href="#第3章-Java基本程序设计结构" class="headerlink" title="第3章 Java基本程序设计结构"></a>第3章 Java基本程序设计结构</h1><h3 id="3-5-2"><a href="#3-5-2" class="headerlink" title="3.5.2"></a>3.5.2</h3><p>Math.round：四舍五入（返回long类型）
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2019/03/13/Java读书笔记系列-第3章-Java基本程序设计结构/#more" rel="contents">
