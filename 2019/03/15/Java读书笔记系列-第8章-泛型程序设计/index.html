@@ -87,15 +87,15 @@
 <meta property="og:site_name" content="WCXDHR Blog">
 <meta property="og:description" content="第8章 泛型程序设计泛型对于集合类尤其有用，ArrayList就是一个无处不在的类。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="d:/文档/WCXDHR%20Blog/source/_posts/Java读书笔记系列-第8章-泛型程序设计/1552637440813.png">
-<meta property="og:image" content="d:/文档/WCXDHR%20Blog/source/_posts/Java读书笔记系列-第8章-泛型程序设计/1552638021809.png">
-<meta property="og:image" content="d:/文档/WCXDHR%20Blog/source/_posts/Java读书笔记系列-第8章-泛型程序设计/1552638625510.png">
-<meta property="og:image" content="d:/文档/WCXDHR%20Blog/source/_posts/Java读书笔记系列-第8章-泛型程序设计/1552639688776.png">
-<meta property="og:updated_time" content="2019-03-15T09:38:42.719Z">
+<meta property="og:image" content="http://yoursite.com/2019/03/15/Java读书笔记系列-第8章-泛型程序设计/1552637440813.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/15/Java读书笔记系列-第8章-泛型程序设计/1552638021809.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/15/Java读书笔记系列-第8章-泛型程序设计/1552638625510.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/15/Java读书笔记系列-第8章-泛型程序设计/1552639688776.png">
+<meta property="og:updated_time" content="2019-03-15T09:40:56.348Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java读书笔记系列 第8章 泛型程序设计">
 <meta name="twitter:description" content="第8章 泛型程序设计泛型对于集合类尤其有用，ArrayList就是一个无处不在的类。">
-<meta name="twitter:image" content="d:/文档/WCXDHR%20Blog/source/_posts/Java读书笔记系列-第8章-泛型程序设计/1552637440813.png">
+<meta name="twitter:image" content="http://yoursite.com/2019/03/15/Java读书笔记系列-第8章-泛型程序设计/1552637440813.png">
 
 
 
@@ -415,20 +415,20 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(String)</span><span class="comment">//来自Pair&lt;T&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object)</span><span class="comment">//继承自Object</span></span></span><br></pre></td></tr></table></figure>
 <p>方法擦除使两个方法发生冲突。补救方法是重新命名引发错误的方法。</p>
 <p>泛型规范说明还提到另外一个原则：”要想支持擦除的转换，就需要强行限制一个类或类型变量不能同时成为两个接口类型的子类，而这两个接口是同一个接口的不同参数化。“</p>
-<h2 id="8-7-泛型类型的继承规则"><a href="#8-7-泛型类型的继承规则" class="headerlink" title="8.7 泛型类型的继承规则"></a>8.7 泛型类型的继承规则</h2><p><img src="D:\文档\WCXDHR Blog\source\_posts\Java读书笔记系列-第8章-泛型程序设计\1552637440813.png" alt="55263744081"></p>
+<h2 id="8-7-泛型类型的继承规则"><a href="#8-7-泛型类型的继承规则" class="headerlink" title="8.7 泛型类型的继承规则"></a>8.7 泛型类型的继承规则</h2><p><img src="1552637440813.png" alt=""></p>
 <p>如图所示，无论S与T有什么关系，一般Pair<s>和Pair<t>没有任何关系。</t></s></p>
 <p>泛型类可以扩展或实现其他的泛型类。</p>
-<p><img src="D:\文档\WCXDHR Blog\source\_posts\Java读书笔记系列-第8章-泛型程序设计\1552638021809.png" alt="55263802180"></p>
+<p><img src="1552638021809.png" alt=""></p>
 <h2 id="8-8-通配符类型"><a href="#8-8-通配符类型" class="headerlink" title="8.8 通配符类型"></a>8.8 通配符类型</h2><h3 id="8-8-1-通配符概念"><a href="#8-8-1-通配符概念" class="headerlink" title="8.8.1 通配符概念"></a>8.8.1 通配符概念</h3><p>通配符类型中，允许类型参数变化。例如，通配符类型</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Pair&lt;? extends Employee&gt;</span><br></pre></td></tr></table></figure>
 <p>表示任何泛型Pair类型，它的类型参数是Employee的子类。</p>
-<p><img src="D:\文档\WCXDHR Blog\source\_posts\Java读书笔记系列-第8章-泛型程序设计\1552638625510.png" alt="55263862551"></p>
+<p><img src="1552638625510.png" alt=""></p>
 <p>Pair<manager>是Pair&lt;? extends Employee&gt;的子类型。</manager></p>
 <p>可以为方法使用返回值，但不能提供参数。</p>
 <h3 id="8-8-2-通配符的超类型限定"><a href="#8-8-2-通配符的超类型限定" class="headerlink" title="8.8.2 通配符的超类型限定"></a>8.8.2 通配符的超类型限定</h3><p>通配符限定可以指定一个类型限定：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">? <span class="keyword">super</span> Manager</span><br></pre></td></tr></table></figure>
 <p>这个通配符限制为所有Manager的超类型。</p>
-<p><img src="D:\文档\WCXDHR Blog\source\_posts\Java读书笔记系列-第8章-泛型程序设计\1552639688776.png" alt="55263968877"></p>
+<p><img src="1552639688776.png" alt=""></p>
 <p>可以为方法提供参数，但不能使用返回值。</p>
 <p>直观地讲，<strong>带有超类型限定的通配符可以向泛型对象写入，带有子类型限定的通配符可以从泛型对象读取。</strong></p>
 <h3 id="8-8-3-无限定通配符"><a href="#8-8-3-无限定通配符" class="headerlink" title="8.8.3 无限定通配符"></a>8.8.3 无限定通配符</h3><p>可以使用无限定的通配符，它与原始的Pair类型有很大不同。</p>
