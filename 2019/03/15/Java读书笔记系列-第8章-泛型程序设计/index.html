@@ -91,7 +91,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/03/15/Java读书笔记系列-第8章-泛型程序设计/1552638021809.png">
 <meta property="og:image" content="http://yoursite.com/2019/03/15/Java读书笔记系列-第8章-泛型程序设计/1552638625510.png">
 <meta property="og:image" content="http://yoursite.com/2019/03/15/Java读书笔记系列-第8章-泛型程序设计/1552639688776.png">
-<meta property="og:updated_time" content="2019-03-15T09:40:56.348Z">
+<meta property="og:updated_time" content="2019-03-15T09:55:31.889Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java读书笔记系列 第8章 泛型程序设计">
 <meta name="twitter:description" content="第8章 泛型程序设计泛型对于集合类尤其有用，ArrayList就是一个无处不在的类。">
@@ -380,7 +380,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SuppressWarnings</span>(<span class="string">"unchecked"</span>)</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 <p>注解放在生成警告的代码所在的方法前。</p>
 <h2 id="8-6-约束与局限性"><a href="#8-6-约束与局限性" class="headerlink" title="8.6 约束与局限性"></a>8.6 约束与局限性</h2><p>以下大多数限制都是由类型擦除引起的。</p>
-<h3 id="8-6-1-不能用基本类型实例化类型参数"><a href="#8-6-1-不能用基本类型实例化类型参数" class="headerlink" title="8.6.1 不能用基本类型实例化类型参数"></a>8.6.1 不能用基本类型实例化类型参数</h3><p>没有Pair<double>，只有Pair<double>，原因是类型擦除。擦除后Pair类含有Object类型的域，而Object不能存储double值。</double></double></p>
+<h3 id="8-6-1-不能用基本类型实例化类型参数"><a href="#8-6-1-不能用基本类型实例化类型参数" class="headerlink" title="8.6.1 不能用基本类型实例化类型参数"></a>8.6.1 不能用基本类型实例化类型参数</h3><p>没有Pair&lt;double&gt;，只有Pair&lt;Double&gt;，原因是类型擦除。擦除后Pair类含有Object类型的域，而Object不能存储double值。</p>
 <h3 id="8-6-2-运行时类型查询只适用于原始类型"><a href="#8-6-2-运行时类型查询只适用于原始类型" class="headerlink" title="8.6.2 运行时类型查询只适用于原始类型"></a>8.6.2 运行时类型查询只适用于原始类型</h3><p>虚拟机中的对象总有一个特定的非泛型类型。因此，所有类型查询只产生原始类型。</p>
 <p>getClass方法也总是 返回原始类型。</p>
 <p>例如：</p>
@@ -391,7 +391,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function"><span class="keyword">void</span> <span class="title">addAll</span><span class="params">(Collection&lt;T&gt; coll, T... ts)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (t : ts) coll.add(t);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>考虑以下调用</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Collection&lt;Pair&lt;String&gt;&gt; table = ...;</span><br><span class="line">Pair&lt;String&gt; pair1 = ...;</span><br><span class="line">Pair&lt;String&gt; pair2 = ...;</span><br><span class="line">addAll(table, pair1, pair2);</span><br></pre></td></tr></table></figure>
-<p>为了调用这个方法，Java虚拟机必须建立一个Pair<string>数组，这就违反了前面的规则。不过，在这种情况下，规则有所放松，只会得到一个警告，而不是错误。</string></p>
+<p>为了调用这个方法，Java虚拟机必须建立一个Pair&lt;String&gt;数组，这就违反了前面的规则。不过，在这种情况下，规则有所放松，只会得到一个警告，而不是错误。</p>
 <p>有两种方法来抑制这个警告。</p>
 <ul>
 <li>为包含addAll调用的方法增加注解@SuppressWarnings(“unchecked”)</li>
@@ -411,19 +411,19 @@
 <h3 id="8-6-10-注意擦除后的限制"><a href="#8-6-10-注意擦除后的限制" class="headerlink" title="8.6.10 注意擦除后的限制"></a>8.6.10 注意擦除后的限制</h3><p>当泛型类型被擦除时，无法创建引发冲突的条件。</p>
 <p>示例如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Pair</span>&lt;<span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(T value)</span> </span>&#123;<span class="keyword">return</span> first.equals(value) &amp;&amp; second.equals(value)&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>考虑Pair<string>。从概念上讲，它有两个equals方法：</string></p>
+<p>考虑Pair&lt;String&gt;。从概念上讲，它有两个equals方法：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(String)</span><span class="comment">//来自Pair&lt;T&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object)</span><span class="comment">//继承自Object</span></span></span><br></pre></td></tr></table></figure>
 <p>方法擦除使两个方法发生冲突。补救方法是重新命名引发错误的方法。</p>
 <p>泛型规范说明还提到另外一个原则：”要想支持擦除的转换，就需要强行限制一个类或类型变量不能同时成为两个接口类型的子类，而这两个接口是同一个接口的不同参数化。“</p>
 <h2 id="8-7-泛型类型的继承规则"><a href="#8-7-泛型类型的继承规则" class="headerlink" title="8.7 泛型类型的继承规则"></a>8.7 泛型类型的继承规则</h2><p><img src="1552637440813.png" alt=""></p>
-<p>如图所示，无论S与T有什么关系，一般Pair<s>和Pair<t>没有任何关系。</t></s></p>
+<p>如图所示，无论S与T有什么关系，一般Pair&lt;S&gt;和Pair&lt;T&gt;没有任何关系。</p>
 <p>泛型类可以扩展或实现其他的泛型类。</p>
 <p><img src="1552638021809.png" alt=""></p>
 <h2 id="8-8-通配符类型"><a href="#8-8-通配符类型" class="headerlink" title="8.8 通配符类型"></a>8.8 通配符类型</h2><h3 id="8-8-1-通配符概念"><a href="#8-8-1-通配符概念" class="headerlink" title="8.8.1 通配符概念"></a>8.8.1 通配符概念</h3><p>通配符类型中，允许类型参数变化。例如，通配符类型</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Pair&lt;? extends Employee&gt;</span><br></pre></td></tr></table></figure>
 <p>表示任何泛型Pair类型，它的类型参数是Employee的子类。</p>
 <p><img src="1552638625510.png" alt=""></p>
-<p>Pair<manager>是Pair&lt;? extends Employee&gt;的子类型。</manager></p>
+<p>Pair&lt;Manager&gt;是Pair&lt;? extends Employee&gt;的子类型。</p>
 <p>可以为方法使用返回值，但不能提供参数。</p>
 <h3 id="8-8-2-通配符的超类型限定"><a href="#8-8-2-通配符的超类型限定" class="headerlink" title="8.8.2 通配符的超类型限定"></a>8.8.2 通配符的超类型限定</h3><p>通配符限定可以指定一个类型限定：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">? <span class="keyword">super</span> Manager</span><br></pre></td></tr></table></figure>
