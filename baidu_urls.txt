@@ -1,2 +1,1 @@
-https://wcxdhr.github.io/2019/03/15/Java读书笔记系列-第8章-泛型程序设计/
-https://wcxdhr.github.io/2019/03/13/Java读书笔记系列-第7章-异常、断言和日志/
+https://wcxdhr.github.io/2019/04/24/Android开发艺术探索笔记系列-第1章-Activity的生命周期和启动模式/

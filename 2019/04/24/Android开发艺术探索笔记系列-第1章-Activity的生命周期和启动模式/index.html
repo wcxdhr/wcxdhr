@@ -83,20 +83,21 @@
 
 
 
-<meta name="description" content="第3章 Java基本程序设计结构3.5.2Math.round：四舍五入（返回long类型）">
+<meta name="description" content="Activity的生命周期分析 正常情况下的生命周期如上图中心线所示。 Activity切换时，旧Activity先onPause，新Activity再启动。 onPause执行完成后新Activity才能Resume，因此onPause中不能做重量级操作。（onStop中可以做稍微重量级一些的工作，也不能太耗时） 异常情况下的生命周期异常情况指Activity被系统回收或当前设备Configur">
 <meta name="keywords" content="读书笔记">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java读书笔记系列 第3章 Java基本程序设计结构">
-<meta property="og:url" content="https://wcxdhr.github.io/2019/03/13/Java读书笔记系列-第3章-Java基本程序设计结构/index.html">
+<meta property="og:title" content="Android开发艺术探索笔记系列-第1章-Activity的生命周期和启动模式">
+<meta property="og:url" content="https://wcxdhr.github.io/2019/04/24/Android开发艺术探索笔记系列-第1章-Activity的生命周期和启动模式/index.html">
 <meta property="og:site_name" content="WCXDHR Blog">
-<meta property="og:description" content="第3章 Java基本程序设计结构3.5.2Math.round：四舍五入（返回long类型）">
+<meta property="og:description" content="Activity的生命周期分析 正常情况下的生命周期如上图中心线所示。 Activity切换时，旧Activity先onPause，新Activity再启动。 onPause执行完成后新Activity才能Resume，因此onPause中不能做重量级操作。（onStop中可以做稍微重量级一些的工作，也不能太耗时） 异常情况下的生命周期异常情况指Activity被系统回收或当前设备Configur">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://wcxdhr.github.io/2019/03/13/Java读书笔记系列-第3章-Java基本程序设计结构/1551256677685.png">
-<meta property="og:updated_time" content="2019-03-13T15:51:22.353Z">
+<meta property="og:image" content="https://wcxdhr.github.io/2019/04/24/Android开发艺术探索笔记系列-第1章-Activity的生命周期和启动模式/1555903104817.png">
+<meta property="og:image" content="https://wcxdhr.github.io/2019/04/24/Android开发艺术探索笔记系列-第1章-Activity的生命周期和启动模式/1555913057138.png">
+<meta property="og:updated_time" content="2019-04-24T08:26:18.846Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java读书笔记系列 第3章 Java基本程序设计结构">
-<meta name="twitter:description" content="第3章 Java基本程序设计结构3.5.2Math.round：四舍五入（返回long类型）">
-<meta name="twitter:image" content="https://wcxdhr.github.io/2019/03/13/Java读书笔记系列-第3章-Java基本程序设计结构/1551256677685.png">
+<meta name="twitter:title" content="Android开发艺术探索笔记系列-第1章-Activity的生命周期和启动模式">
+<meta name="twitter:description" content="Activity的生命周期分析 正常情况下的生命周期如上图中心线所示。 Activity切换时，旧Activity先onPause，新Activity再启动。 onPause执行完成后新Activity才能Resume，因此onPause中不能做重量级操作。（onStop中可以做稍微重量级一些的工作，也不能太耗时） 异常情况下的生命周期异常情况指Activity被系统回收或当前设备Configur">
+<meta name="twitter:image" content="https://wcxdhr.github.io/2019/04/24/Android开发艺术探索笔记系列-第1章-Activity的生命周期和启动模式/1555903104817.png">
 
 
 
@@ -126,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="https://wcxdhr.github.io/2019/03/13/Java读书笔记系列-第3章-Java基本程序设计结构/"/>
+  <link rel="canonical" href="https://wcxdhr.github.io/2019/04/24/Android开发艺术探索笔记系列-第1章-Activity的生命周期和启动模式/"/>
 
 
 
 
 
-  <title>Java读书笔记系列 第3章 Java基本程序设计结构 | WCXDHR Blog</title>
+  <title>Android开发艺术探索笔记系列-第1章-Activity的生命周期和启动模式 | WCXDHR Blog</title>
   
 
 
@@ -269,7 +270,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://wcxdhr.github.io/2019/03/13/Java读书笔记系列-第3章-Java基本程序设计结构/">
+    <link itemprop="mainEntityOfPage" href="https://wcxdhr.github.io/2019/04/24/Android开发艺术探索笔记系列-第1章-Activity的生命周期和启动模式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="WCXDHR">
@@ -286,7 +287,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Java读书笔记系列 第3章 Java基本程序设计结构</h1>
+          <h1 class="post-title" itemprop="name headline">Android开发艺术探索笔记系列-第1章-Activity的生命周期和启动模式</h1>
         
 
         <div class="post-meta">
@@ -298,8 +299,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-13T20:31:18+08:00">
-                2019-03-13
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-24T16:21:46+08:00">
+                2019-04-24
               </time>
             
 
@@ -321,8 +322,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java核心技术卷Ⅰ读书笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">Java核心技术卷Ⅰ读书笔记</span>
+                  <a href="/categories/Android开发艺术探索笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">Android开发艺术探索笔记</span>
                   </a>
                 </span>
 
@@ -358,26 +359,68 @@
       
 
       
-        <h1 id="第3章-Java基本程序设计结构"><a href="#第3章-Java基本程序设计结构" class="headerlink" title="第3章 Java基本程序设计结构"></a>第3章 Java基本程序设计结构</h1><h3 id="3-5-2"><a href="#3-5-2" class="headerlink" title="3.5.2"></a>3.5.2</h3><p>Math.round：四舍五入（返回long类型）<a id="more"></a></p>
-<h2 id="3-6-字符串"><a href="#3-6-字符串" class="headerlink" title="3.6  字符串"></a>3.6  字符串</h2><p>substring方法：提取子串</p>
-<p>+：连接</p>
-<p>String类对象：不可变字符串（修改字符串变量以引用另一个字符串），优点：编译器让字符串共享</p>
-<p>equals方法：判断字符串是否相等（equalsIgnoreCase:不区分大小写）</p>
-<p><strong>注</strong> ：==只能确定字符串是否放在同一个位置上（必然相等）</p>
-<h3 id="3-6-5-空串与Null串"><a href="#3-6-5-空串与Null串" class="headerlink" title="3.6.5 空串与Null串"></a>3.6.5 空串与Null串</h3><p>空串长度为0，Null串str==null</p>
-<h3 id="3-6-9-构建字符串"><a href="#3-6-9-构建字符串" class="headerlink" title="3.6.9 构建字符串"></a>3.6.9 构建字符串</h3><p>StringBuilder类：字符串构建器，适用于由较短的字符串构建字符串。</p>
-<h2 id="3-8"><a href="#3-8" class="headerlink" title="3.8"></a>3.8</h2><h3 id="3-8-6"><a href="#3-8-6" class="headerlink" title="3.8.6"></a>3.8.6</h3><p>带标签的break语句：跳出多重循环</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">read_data:</span><br><span class="line"><span class="keyword">while</span>()</span><br><span class="line">&#123;</span><br><span class="line">  ...</span><br><span class="line">    <span class="keyword">break</span> read_data;</span><br><span class="line">	<span class="comment">//跳出read_data所标记的循环  </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="3-9-大数值"><a href="#3-9-大数值" class="headerlink" title="3.9 大数值"></a>3.9 大数值</h2><p>BigInteger </p>
-<p>BigDecimal</p>
-<h2 id="3-10-数组"><a href="#3-10-数组" class="headerlink" title="3.10 数组"></a>3.10 数组</h2><p><strong>初始值</strong></p>
-<p>数字数组：0</p>
-<p>布尔型数组：false</p>
-<p>对象数组：null</p>
-<p><strong>for each 循环</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (variable : collection) statement</span><br><span class="line"><span class="comment">//example a:数组或实现了Iterable接口的类对象</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> element : a)</span><br><span class="line">    System.out.println(element);</span><br></pre></td></tr></table></figure>
-<h3 id="3-10-3-数组拷贝"><a href="#3-10-3-数组拷贝" class="headerlink" title="3.10.3 数组拷贝"></a>3.10.3 数组拷贝</h3><p>一个数组变量拷贝给另一个数组变量：两个变量引用同一个数组</p>
-<p><img src="1551256677685.png" alt=""></p>
+        <h2 id="Activity的生命周期分析"><a href="#Activity的生命周期分析" class="headerlink" title="Activity的生命周期分析"></a>Activity的生命周期分析</h2><p><img src="1555903104817.png" alt=""></p>
+<h3 id="正常情况下的生命周期"><a href="#正常情况下的生命周期" class="headerlink" title="正常情况下的生命周期"></a>正常情况下的生命周期</h3><p>如上图中心线所示。</p>
+<p>Activity切换时，旧Activity先onPause，新Activity再启动。</p>
+<p>onPause执行完成后新Activity才能Resume，因此onPause中不能做重量级操作。（onStop中可以做稍微重量级一些的工作，也不能太耗时）</p>
+<h3 id="异常情况下的生命周期"><a href="#异常情况下的生命周期" class="headerlink" title="异常情况下的生命周期"></a>异常情况下的生命周期</h3><p>异常情况指Activity被系统回收或当前设备Configuration发生改变。</p>
+<h4 id="情况1"><a href="#情况1" class="headerlink" title="情况1"></a>情况1</h4><p><strong>资源相关的系统配置发生改变导致Activity被杀死并重新创建</strong></p>
+<p>例如旋转屏幕</p>
+<p><img src="1555913057138.png" alt=""></p>
+<p>在onStop之前调用onSaveInstanceState来保存Activity状态。（可能在onPause之前，也可能在onPause之后）。</p>
+<p>Activity重新创建后，系统会调用onRestoreInstanceState（在onStart之后），并将onSaveInstanceState保存的Bundle对象作为参数传给onCreate和onRestoreInstanceState。</p>
+<p>系统自动做的恢复工作：当前Activity的视图结构（例如文本框中的输入数据，ListView滚动的位置）。</p>
+<p>保存数据和恢复数据采用的是委托思想。Activity委托Window，Window再委托它上面的顶级容器来保存数据（一般是一个ViewGroup，很可能是DecorView）。顶级容器再一一通知它的子元素来保存数据。</p>
+<p><strong>注：onRestoreInstanceState会对Bundl判空，onCreate不会</strong></p>
+<h4 id="情况2"><a href="#情况2" class="headerlink" title="情况2"></a>情况2</h4><p><strong>系统内存不足导致低优先级的Activity被杀死</strong></p>
+<p><strong>注：</strong> 当系统配置发生改变后，若不想系统重新创建Activity，可以给Activity指定configChanges属性。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//example</span><br><span class="line">android:configChanges="orientation"</span><br></pre></td></tr></table></figure>
+<p>这样屏幕方向改变时，Activity不会被销毁重建，而是系统调用Activity的onConfigurationChanged方法。</p>
+<h2 id="Activity的启动模式"><a href="#Activity的启动模式" class="headerlink" title="Activity的启动模式"></a>Activity的启动模式</h2><h3 id="Activity的LaunchMode"><a href="#Activity的LaunchMode" class="headerlink" title="Activity的LaunchMode"></a>Activity的LaunchMode</h3><ul>
+<li><p><strong>standard 标准模式</strong></p>
+<p>默认模式，重复创建。</p>
+</li>
+<li><p><strong>singleTop 栈顶复用模式</strong></p>
+<p>若Activity位于任务栈的栈顶，不会重新创建，而是调用onNewIntent方法。否则会重新创建。</p>
+</li>
+<li><p><strong>singleTask 栈内复用模式</strong></p>
+<p>只要Activity在一个栈中存在，则多次启动不会重新创建实例。注：该模式具有clearTop效果，栈内所有在上面的Activity会全部出栈。</p>
+</li>
+<li><p><strong>singleInstance 单实例模式</strong></p>
+<p>加强版的singleTask，Activity只能单独地位于一个任务栈中。</p>
+</li>
+</ul>
+<p><strong>任务栈：TaskAffinity标识了所需要的任务栈的名字</strong></p>
+<p><strong>给Activity指定启动模式的方法</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//方法一</span></span><br><span class="line">android:launchMode = <span class="string">"singleTask"</span></span><br><span class="line"><span class="comment">//方法二</span></span><br><span class="line">intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)</span><br></pre></td></tr></table></figure>
+<p>方法二的优先级高于方法一，限定范围有所不同。</p>
+<h3 id="Activity的Flags"><a href="#Activity的Flags" class="headerlink" title="Activity的Flags"></a>Activity的Flags</h3><p>一些常用的标记位：</p>
+<ul>
+<li><p>FLAGS_ACTIVITY_NEW_TASK</p>
+<p>指定singleTask启动模式</p>
+</li>
+<li><p>FLAGS_ACTIVITY_SINGLE_TOP</p>
+<p>指定singleTop启动模式</p>
+</li>
+<li><p>FLAGS_ACTIVITY_CLEAR_TOP</p>
+<p>清除栈内该Activity上面的Activity（出栈）</p>
+</li>
+<li><p>FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS</p>
+<p>Activity不会出现在历史Activity列表中</p>
+</li>
+</ul>
+<h2 id="IntentFilter的匹配规则"><a href="#IntentFilter的匹配规则" class="headerlink" title="IntentFilter的匹配规则"></a>IntentFilter的匹配规则</h2><p>启动Activity的隐式调用中，需要Intent能够匹配目标组件的IntentFilter中所设置的过滤信息。</p>
+<p>IntentFilter中的过滤信息有action、category、data。</p>
+<p>匹配时需要全部匹配，有多个intent-filter时，能匹配任意一组即可启动。</p>
+<p><strong>action</strong></p>
+<p>要求Intent中action存在且必须至少有一个和过滤规则中的其中一个action相同，区分大小写。</p>
+<p><strong>category</strong></p>
+<p>Intent中可以没有category（这时category默认为“android.intent.category.DEFAULT“，只要intent-filter中有相应category即可接收隐式调用）。</p>
+<p>一旦有category每一个都要与过滤规则中的其中一个category相同。</p>
+<p><strong>data</strong></p>
+<p>与action类似。</p>
+<p>Data属性通常用来向Action属性提供操作的数据。</p>
+<p><strong>注：Service建议尽量使用显式调用</strong></p>
 
       
     </div>
@@ -408,8 +451,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/20/Bupt-OJ-302-网络传输-网研14/" rel="next" title="Bupt OJ-302. 网络传输-网研14">
-                <i class="fa fa-chevron-left"></i> Bupt OJ-302. 网络传输-网研14
+              <a href="/2019/03/15/Java读书笔记系列-第8章-泛型程序设计/" rel="next" title="Java读书笔记系列 第8章 泛型程序设计">
+                <i class="fa fa-chevron-left"></i> Java读书笔记系列 第8章 泛型程序设计
               </a>
             
           </div>
@@ -417,10 +460,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/03/13/Java读书笔记系列-第4章-对象与类/" rel="prev" title="Java读书笔记系列 第4章 对象与类">
-                Java读书笔记系列 第4章 对象与类 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -563,7 +602,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第3章-Java基本程序设计结构"><span class="nav-number">1.</span> <span class="nav-text">第3章 Java基本程序设计结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-2"><span class="nav-number">1.0.1.</span> <span class="nav-text">3.5.2</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-6-字符串"><span class="nav-number">1.1.</span> <span class="nav-text">3.6  字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-5-空串与Null串"><span class="nav-number">1.1.1.</span> <span class="nav-text">3.6.5 空串与Null串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-9-构建字符串"><span class="nav-number">1.1.2.</span> <span class="nav-text">3.6.9 构建字符串</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-8"><span class="nav-number">1.2.</span> <span class="nav-text">3.8</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-8-6"><span class="nav-number">1.2.1.</span> <span class="nav-text">3.8.6</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-9-大数值"><span class="nav-number">1.3.</span> <span class="nav-text">3.9 大数值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-10-数组"><span class="nav-number">1.4.</span> <span class="nav-text">3.10 数组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-10-3-数组拷贝"><span class="nav-number">1.4.1.</span> <span class="nav-text">3.10.3 数组拷贝</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Activity的生命周期分析"><span class="nav-number">1.</span> <span class="nav-text">Activity的生命周期分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#正常情况下的生命周期"><span class="nav-number">1.1.</span> <span class="nav-text">正常情况下的生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异常情况下的生命周期"><span class="nav-number">1.2.</span> <span class="nav-text">异常情况下的生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#情况1"><span class="nav-number">1.2.1.</span> <span class="nav-text">情况1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#情况2"><span class="nav-number">1.2.2.</span> <span class="nav-text">情况2</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Activity的启动模式"><span class="nav-number">2.</span> <span class="nav-text">Activity的启动模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Activity的LaunchMode"><span class="nav-number">2.1.</span> <span class="nav-text">Activity的LaunchMode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Activity的Flags"><span class="nav-number">2.2.</span> <span class="nav-text">Activity的Flags</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IntentFilter的匹配规则"><span class="nav-number">3.</span> <span class="nav-text">IntentFilter的匹配规则</span></a></li></ol></div>
             
 
           </div>
