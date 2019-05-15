@@ -94,7 +94,7 @@
 <meta property="og:image" content="https://wcxdhr.github.io/2019/03/13/Java读书笔记系列-第4章-对象与类/1551258991671.png">
 <meta property="og:image" content="https://wcxdhr.github.io/2019/03/13/Java读书笔记系列-第4章-对象与类/1551336870827.png">
 <meta property="og:image" content="https://wcxdhr.github.io/2019/03/13/Java读书笔记系列-第4章-对象与类/1551339471365.png">
-<meta property="og:updated_time" content="2019-03-13T15:51:12.785Z">
+<meta property="og:updated_time" content="2019-05-15T09:09:24.822Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java读书笔记系列 第4章 对象与类">
 <meta name="twitter:description" content="第4章 对象与类4.1.4 类之间的关系 依赖（uses-a） 一个类的方法操纵另一个类的对象，应尽可能减少依赖，让类之间的耦合度最小（Order对象使用Account对象查看信用状态）">
@@ -371,7 +371,7 @@
 <p>类A扩展类B，继承类B（RushOrder类继承Order类）</p>
 </li>
 </ul>
-<p><img src="1551258991671.png" alt=""></p>
+<img src="/2019/03/13/Java读书笔记系列-第4章-对象与类/1551258991671.png">
 <h3 id="4-2-1-对象与对象变量"><a href="#4-2-1-对象与对象变量" class="headerlink" title="4.2.1 对象与对象变量"></a>4.2.1 对象与对象变量</h3><p><strong>对象与对象变量的区别</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Date deadline;<span class="comment">//deadline是对象变量，未指向任何对象</span></span><br></pre></td></tr></table></figure>
 <p>变量deadline不是一个对象，也没有引用对象，必须首先<strong>初始化变量</strong>。 可以使用新构造的对象初始化变量，也可以让变量引用一个已存在的对象（这样两个变量引用同一个对象）</p>
@@ -382,7 +382,7 @@
 <h3 id="4-3-5-隐式参数与显式参数"><a href="#4-3-5-隐式参数与显式参数" class="headerlink" title="4.3.5 隐式参数与显式参数"></a>4.3.5 隐式参数与显式参数</h3><p>在每一个方法中，关键字this表示隐式参数。</p>
 <h3 id="4-3-6-封装的优点"><a href="#4-3-6-封装的优点" class="headerlink" title="4.3.6 封装的优点"></a>4.3.6 封装的优点</h3><p><strong>不要返回引用可变对象的访问器方法</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Date hireDay;</span><br><span class="line">    ...</span><br><span class="line">        <span class="function"><span class="keyword">public</span> Date <span class="title">getHireDay</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> hireDay;<span class="comment">//Bad 因为Date有一个更改器方法setTime，可以更改对象</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Employee harry = ...;</span><br><span class="line">Date d = harry.getHireDay();</span><br><span class="line"><span class="keyword">double</span> tempTime = <span class="number">10</span> * <span class="number">12345</span>;</span><br><span class="line">d.setTime(d.getTime() - (<span class="keyword">long</span>) tempTime);<span class="comment">//这里d和harry.hireDay引用同一个对象，对象已改变。</span></span><br></pre></td></tr></table></figure>
-<p><img src="1551336870827.png" alt=""></p>
+<img src="/2019/03/13/Java读书笔记系列-第4章-对象与类/1551336870827.png">
 <p>如果需要返回一个可变数据域的拷贝，应该使用clone。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Employee</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Date hireDay;</span><br><span class="line">    ...</span><br><span class="line">        <span class="function"><span class="keyword">public</span> Date <span class="title">getHireDay</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (Date) hireDay.clone();<span class="comment">//Ok</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="4-3-7-基于类的访问权限"><a href="#4-3-7-基于类的访问权限" class="headerlink" title="4.3.7 基于类的访问权限"></a>4.3.7 基于类的访问权限</h3><p>一个方法可以访问<strong>所属类的所有对象的私有数据</strong></p>
@@ -401,7 +401,7 @@
 <li>对象引用</li>
 </ul>
 <p>一个方法不能修改一个基本数据类型的参数，但可以改变对象引用的值。（方法得到的是对象引用的拷贝，对象引用及其拷贝引用同一个对象，可以由此修改所引用的对象状态）</p>
-<p><img src="1551339471365.png" alt=""></p>
+<img src="/2019/03/13/Java读书笔记系列-第4章-对象与类/1551339471365.png">
 <p>总结Java中方法参数的使用情况：</p>
 <ul>
 <li>一个方法不能修改一个基本数据类型的参数</li>

@@ -75,8 +75,6 @@
 
 
 
-  
-
 
   <link rel="alternate" href="/atom.xml" title="WCXDHR Blog" type="application/atom+xml" />
 
@@ -95,7 +93,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://wcxdhr.github.io/2019/04/24/Android开发艺术探索笔记系列-第1章-Activity的生命周期和启动模式/1555903104817.png">
 <meta property="og:image" content="https://wcxdhr.github.io/2019/04/24/Android开发艺术探索笔记系列-第1章-Activity的生命周期和启动模式/1555913057138.png">
-<meta property="og:updated_time" content="2019-05-15T08:57:11.537Z">
+<meta property="og:updated_time" content="2019-05-15T09:00:39.106Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android开发艺术探索笔记系列-第1章-Activity的生命周期和启动模式">
 <meta name="twitter:description" content="Activity的生命周期分析 正常情况下的生命周期如上图中心线所示。">
@@ -368,7 +366,7 @@
 <h3 id="异常情况下的生命周期"><a href="#异常情况下的生命周期" class="headerlink" title="异常情况下的生命周期"></a>异常情况下的生命周期</h3><p>异常情况指Activity被系统回收或当前设备Configuration发生改变。</p>
 <h4 id="情况1"><a href="#情况1" class="headerlink" title="情况1"></a>情况1</h4><p><strong>资源相关的系统配置发生改变导致Activity被杀死并重新创建</strong></p>
 <p>例如旋转屏幕</p>
-<p><img src="1555913057138.png" alt=""></p>
+<img src="/2019/04/24/Android开发艺术探索笔记系列-第1章-Activity的生命周期和启动模式/1555913057138.png">
 <p>在onStop之前调用onSaveInstanceState来保存Activity状态。（可能在onPause之前，也可能在onPause之后）。</p>
 <p>Activity重新创建后，系统会调用onRestoreInstanceState（在onStart之后），并将onSaveInstanceState保存的Bundle对象作为参数传给onCreate和onRestoreInstanceState。</p>
 <p>系统自动做的恢复工作：当前Activity的视图结构（例如文本框中的输入数据，ListView滚动的位置）。</p>
