@@ -1,1 +1,1 @@
-https://wcxdhr.github.io/2019/04/24/Android开发艺术探索笔记系列-第1章-Activity的生命周期和启动模式/
+https://wcxdhr.github.io/2019/05/15/Android开发艺术探索笔记系列-第3章-View的事件体系/

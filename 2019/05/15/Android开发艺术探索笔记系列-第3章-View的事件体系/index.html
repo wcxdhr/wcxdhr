@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="googlea13c34376ca8a2f0.html" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="读书笔记," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="WCXDHR Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="View的事件体系View基础知识什么是ViewView是Android中所有控件的基类。 ViewGroup内部包含了一组View，它也继承自View。这种关系形成了View树的概念。">
+<meta name="keywords" content="读书笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android开发艺术探索笔记系列-第3章-View的事件体系">
+<meta property="og:url" content="https://wcxdhr.github.io/2019/05/15/Android开发艺术探索笔记系列-第3章-View的事件体系/index.html">
+<meta property="og:site_name" content="WCXDHR Blog">
+<meta property="og:description" content="View的事件体系View基础知识什么是ViewView是Android中所有控件的基类。 ViewGroup内部包含了一组View，它也继承自View。这种关系形成了View树的概念。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://wcxdhr.github.io/2019/05/15/Android开发艺术探索笔记系列-第3章-View的事件体系/1557129414312.png">
+<meta property="og:image" content="https://wcxdhr.github.io/2019/05/15/Android开发艺术探索笔记系列-第3章-View的事件体系/1557733283447.png">
+<meta property="og:image" content="https://wcxdhr.github.io/2019/05/15/Android开发艺术探索笔记系列-第3章-View的事件体系/1557909679329.png">
+<meta property="og:image" content="d:/Desktop/学/一/項目/Android开发艺术探索/1557909679329.png">
+<meta property="og:updated_time" content="2019-05-15T08:56:16.378Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android开发艺术探索笔记系列-第3章-View的事件体系">
+<meta name="twitter:description" content="View的事件体系View基础知识什么是ViewView是Android中所有控件的基类。 ViewGroup内部包含了一组View，它也继承自View。这种关系形成了View树的概念。">
+<meta name="twitter:image" content="https://wcxdhr.github.io/2019/05/15/Android开发艺术探索笔记系列-第3章-View的事件体系/1557129414312.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://wcxdhr.github.io/2019/05/15/Android开发艺术探索笔记系列-第3章-View的事件体系/"/>
+
+
+
+
+
+  <title>Android开发艺术探索笔记系列-第3章-View的事件体系 | WCXDHR Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?88497255be7fde2d6459ede657c75534";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WCXDHR Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://wcxdhr.github.io/2019/05/15/Android开发艺术探索笔记系列-第3章-View的事件体系/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="WCXDHR">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WCXDHR Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android开发艺术探索笔记系列-第3章-View的事件体系</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-15T16:47:40+08:00">
+                2019-05-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android开发艺术探索笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">Android开发艺术探索笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="View的事件体系"><a href="#View的事件体系" class="headerlink" title="View的事件体系"></a>View的事件体系</h1><h2 id="View基础知识"><a href="#View基础知识" class="headerlink" title="View基础知识"></a>View基础知识</h2><h3 id="什么是View"><a href="#什么是View" class="headerlink" title="什么是View"></a>什么是View</h3><p>View是Android中所有控件的基类。</p>
+<p>ViewGroup内部包含了一组View，它也继承自View。这种关系形成了View树的概念。<a id="more"></a></p>
+<h3 id="View的位置参数"><a href="#View的位置参数" class="headerlink" title="View的位置参数"></a>View的位置参数</h3><p>四个属性：</p>
+<ul>
+<li>top 左上角纵坐标</li>
+<li>left 左上角横坐标</li>
+<li>right 右下角横坐标</li>
+<li>bottom 右下角纵坐标</li>
+</ul>
+<p>以上都是相对坐标，相对于父容器来说。</p>
+<p><strong>x轴和y轴方向分别为右和下（第四象限）</strong></p>
+<img src="/2019/05/15/Android开发艺术探索笔记系列-第3章-View的事件体系/1557129414312.png">
+<p>Android3.0之后，View增加了几个额外参数：</p>
+<ul>
+<li>x 和 y：View左上角坐标</li>
+<li>translationX和translationY：View左上角相对于父容器的偏移量。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x = left + translationX</span><br><span class="line">y = top + translationY</span><br></pre></td></tr></table></figure>
+<p>View在平移过程中，top和left是原始左上角的位置信息，不会发生改变。translationX/Y是平移距离，x/y是View的左上角位置。</p>
+<p>参考：<a href="https://blog.csdn.net/wxv111/article/details/50901199" target="_blank" rel="noopener">https://blog.csdn.net/wxv111/article/details/50901199</a></p>
+<h3 id="MotionEvent和TouchSlop"><a href="#MotionEvent和TouchSlop" class="headerlink" title="MotionEvent和TouchSlop"></a>MotionEvent和TouchSlop</h3><p><strong>MotionEvent</strong></p>
+<p>手指接触屏幕产生的一系列事件中，有以下典型事件：</p>
+<ul>
+<li>ACTION_DOWN：手指刚接触屏幕</li>
+<li>ACTION_MOVE：手指在屏幕上移动</li>
+<li>ACTION_UP：手指从屏幕上松开的一瞬间</li>
+</ul>
+<p>一次手指触摸屏幕的行为会触发一系列点击事件，考虑以下几种情况：</p>
+<ul>
+<li>点击屏幕后离开松开：DOWN-&gt;UP</li>
+<li>点击屏幕滑动再松开：DOWN-&gt;MOVE-&gt;…-&gt;MOVE-&gt;UP</li>
+</ul>
+<p>通过MotionEvent对象可以得到点击事件发生的x和y坐标：</p>
+<p>getX/getY返回当前相对于当前View左上角的x和y坐标，getRawX/getRawY返回相对手机屏幕左上角的x和y坐标。</p>
+<p><strong>TouchSlop</strong></p>
+<p>系统所能识别的滑动的最小距离。这是一个常量，和设备有关。</p>
+<p>ViewConfiguration.get(getContext()).getScaledTouchSlop()可以获得这个常量。</p>
+<p>在处理滑动时，可以利用这个常量做一些过滤。</p>
+<p>源码frameworks/base/core/res/res/values/config.xml中可以找到这个常量的定义。</p>
+<h3 id="VelocityTracker、GestureDetector和Scroller"><a href="#VelocityTracker、GestureDetector和Scroller" class="headerlink" title="VelocityTracker、GestureDetector和Scroller"></a>VelocityTracker、GestureDetector和Scroller</h3><p><strong>VelocityTracker</strong></p>
+<p>速度追踪，用于追踪手指在滑动过程中的速度。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">VelocityTracker velocityTracker = VelocityTracker.obtain();</span><br><span class="line">velocityTracker.addMovement(event);<span class="comment">//在View的onTouchEvent方法中追踪当前单击事件速度</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">//获取当前滑动速度</span></span><br><span class="line">velocityTracker.computeCurrentVelocity(<span class="number">1000</span>);<span class="comment">//获取速度前先计算速度，参数为时间，单位ms</span></span><br><span class="line"><span class="keyword">int</span> xVelocity = (<span class="keyword">int</span>) velocityTracker.getXVelocity();</span><br><span class="line"><span class="keyword">int</span> yVelocity = (<span class="keyword">int</span>) velocityTracker.getYVelocity();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//使用完成后，回收内存</span></span><br><span class="line">velocityTracker.clear();</span><br><span class="line">velocityTracker.recycle();</span><br></pre></td></tr></table></figure>
+<p><strong>GestureDetector</strong></p>
+<p>手势检测，用于辅助检测用户的单击、滑动、长按、双击等行为。</p>
+<ul>
+<li><p>首先，创建一个GestureDetector对象并实现OnGestureListener接口，根据需要还可以实现其它接口。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GestureDetector mGestureDetector = <span class="keyword">new</span> GestureDetector(<span class="keyword">this</span>);</span><br><span class="line">mGestureDetector.setIsLongpressEnabled(<span class="keyword">false</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>接着，接管目标View的onTouchEvent方法，在待监听View的onTouchEvent方法中添加实现。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">boolean</span> consume = mGestureDetector.onTouchEvent(event);</span><br><span class="line"><span class="keyword">return</span> consume;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>详解：<a href="https://www.gcssloop.com/customview/gestruedector" target="_blank" rel="noopener">https://www.gcssloop.com/customview/gestruedector</a></p>
+<p><strong>注</strong>：建议只是监听滑动相关的，在onTouchEvent中实现，如果监听双击行为，使用GestureDetector。</p>
+<p><strong>Scroller</strong></p>
+<p>弹性滑动对象，用于实现View的弹性滑动。（View的scrollTo/scrollBy方法来进行滑动时，过程瞬间完成，没有过渡效果）</p>
+<p>Scroller需要和View的computeScroll方法一起配合使用。</p>
+<h2 id="View的滑动"><a href="#View的滑动" class="headerlink" title="View的滑动"></a>View的滑动</h2><h3 id="使用scrollTo-scrollBy"><a href="#使用scrollTo-scrollBy" class="headerlink" title="使用scrollTo/scrollBy"></a>使用scrollTo/scrollBy</h3><p>scrollTo实现了基于所传递参数的绝对滑动。scrollBy调用scrollTo，实现了基于当前位置的相对滑动。</p>
+<p>滑动过程中View有两个属性mScrollX和mScrollY，在滑动过程中，总是等于View的左/上边缘和View内容左/上边缘在水平/竖直方向的距离。</p>
+<p>使用scrollTo和scrollBy时，只能将View的内容滑动，不能将View本身移动。</p>
+<img src="/2019/05/15/Android开发艺术探索笔记系列-第3章-View的事件体系/1557733283447.png">
+<h3 id="使用动画"><a href="#使用动画" class="headerlink" title="使用动画"></a>使用动画</h3><p>（View动画省略）</p>
+<p>现在使用属性动画。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ObjectAnimator.ofFloat(targetView, <span class="string">"translationX"</span>, <span class="number">0</span>, <span class="number">100</span>).setDuration(<span class="number">100</span>).start();</span><br></pre></td></tr></table></figure>
+<h3 id="改变布局参数"><a href="#改变布局参数" class="headerlink" title="改变布局参数"></a>改变布局参数</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//example</span></span><br><span class="line">MarginLayoutParams params = (MarginLayoutParams)mButton1.getLayoutParams();</span><br><span class="line">params.width += <span class="number">100</span>;</span><br><span class="line">params.leftMargin += <span class="number">100</span>;</span><br><span class="line">mButton.requestLayout();<span class="comment">//或mButton1.setLayoutParams(params);</span></span><br></pre></td></tr></table></figure>
+<h3 id="三种滑动方式对比"><a href="#三种滑动方式对比" class="headerlink" title="三种滑动方式对比"></a>三种滑动方式对比</h3><ul>
+<li><p>使用scrollTo/scrollBy：操作简单，适合对View内容的滑动</p>
+<p>View提供的原生方法，专门用于View的滑动，可以比较方便地实现滑动效果而不影响内部元素的单击事件。缺点：只能滑动View的内容，不能滑动View本身。</p>
+</li>
+<li><p>使用动画：操作简单，适用于没有交互的View和实现复杂的动画效果</p>
+<p>属性动画没有明显缺点。优点是一些复杂的效果必须通过动画实现。</p>
+</li>
+<li><p>改变布局参数：操作稍微复杂，适用于有交互的View</p>
+<p>使用起来比较麻烦，也没有明显缺点。主要适用对象是一些具有交互性的View。</p>
+</li>
+</ul>
+<h2 id="弹性滑动"><a href="#弹性滑动" class="headerlink" title="弹性滑动"></a>弹性滑动</h2><p>渐进式滑动，实现方法的共同思想是：将一次大的滑动分成若干次小的滑动并在一个时间段内完成。</p>
+<h3 id="使用Scroller"><a href="#使用Scroller" class="headerlink" title="使用Scroller"></a>使用Scroller</h3><p><a href="https://www.jianshu.com/p/cce0d5fc8c35" target="_blank" rel="noopener">https://www.jianshu.com/p/cce0d5fc8c35</a></p>
+<h3 id="通过动画"><a href="#通过动画" class="headerlink" title="通过动画"></a>通过动画</h3><p>在onAnimationnUpdate中加上scrollTo方法进行操作。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> <span class="keyword">int</span> startX = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">final</span> <span class="keyword">int</span> deltaX = <span class="number">100</span>;</span><br><span class="line"><span class="keyword">final</span> ValueAnimator animator = ValueAnimator.ofInt(<span class="number">0</span>,<span class="number">1</span>).setDuration(<span class="number">1000</span>);</span><br><span class="line">animator.addUpdateListener(<span class="keyword">new</span> ValueAnimator.AnimatorUpdateListener() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onAnimationUpdate</span><span class="params">(ValueAnimator animation)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">float</span> fraction = animator.getAnimatedFraction();</span><br><span class="line">        mButton.scrollTo(startX + (<span class="keyword">int</span>) (deltaX * fraction), <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">animator.start();</span><br></pre></td></tr></table></figure>
+<h3 id="使用延时策略"><a href="#使用延时策略" class="headerlink" title="使用延时策略"></a>使用延时策略</h3><p>使用Handler或View的postDelayed方法。</p>
+<h2 id="View的事件分发机制"><a href="#View的事件分发机制" class="headerlink" title="View的事件分发机制"></a>View的事件分发机制</h2><p><a href="https://blog.csdn.net/carson_ho/article/details/54136311" target="_blank" rel="noopener">https://blog.csdn.net/carson_ho/article/details/54136311</a></p>
+<p>这篇博客写得比较清楚。</p>
+<h2 id="View的滑动冲突"><a href="#View的滑动冲突" class="headerlink" title="View的滑动冲突"></a>View的滑动冲突</h2><p>常见滑动冲突场景：</p>
+<ul>
+<li>场景1——外部滑动方向和内部滑动方向不一致</li>
+<li>场景2——外部滑动方向和内部滑动方向一致</li>
+<li>场景3——上面两种情况的嵌套</li>
+</ul>
+<img src="/2019/05/15/Android开发艺术探索笔记系列-第3章-View的事件体系/1557909679329.png">
+<p><img src="D:\Desktop\学\一\項目\Android开发艺术探索\1557909679329.png" alt=""></p>
+<h3 id="处理规则"><a href="#处理规则" class="headerlink" title="处理规则"></a>处理规则</h3><p>场景1：用户左右滑动时，需要外部的View拦截点击事件，用户上下滑动时，需要让内部View拦截点击事件。一般可以根据水平和竖直方向滑动的距离来判断方向。</p>
+<p>场景2：在业务上找突破点。</p>
+<p>场景3：同上。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/读书笔记/" rel="tag"># 读书笔记</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/24/Android开发艺术探索笔记系列-第1章-Activity的生命周期和启动模式/" rel="next" title="Android开发艺术探索笔记系列-第1章-Activity的生命周期和启动模式">
+                <i class="fa fa-chevron-left"></i> Android开发艺术探索笔记系列-第1章-Activity的生命周期和启动模式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="WCXDHR" />
+            
+              <p class="site-author-name" itemprop="name">WCXDHR</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#View的事件体系"><span class="nav-number">1.</span> <span class="nav-text">View的事件体系</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#View基础知识"><span class="nav-number">1.1.</span> <span class="nav-text">View基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是View"><span class="nav-number">1.1.1.</span> <span class="nav-text">什么是View</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#View的位置参数"><span class="nav-number">1.1.2.</span> <span class="nav-text">View的位置参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MotionEvent和TouchSlop"><span class="nav-number">1.1.3.</span> <span class="nav-text">MotionEvent和TouchSlop</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VelocityTracker、GestureDetector和Scroller"><span class="nav-number">1.1.4.</span> <span class="nav-text">VelocityTracker、GestureDetector和Scroller</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#View的滑动"><span class="nav-number">1.2.</span> <span class="nav-text">View的滑动</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用scrollTo-scrollBy"><span class="nav-number">1.2.1.</span> <span class="nav-text">使用scrollTo/scrollBy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用动画"><span class="nav-number">1.2.2.</span> <span class="nav-text">使用动画</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#改变布局参数"><span class="nav-number">1.2.3.</span> <span class="nav-text">改变布局参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三种滑动方式对比"><span class="nav-number">1.2.4.</span> <span class="nav-text">三种滑动方式对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#弹性滑动"><span class="nav-number">1.3.</span> <span class="nav-text">弹性滑动</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用Scroller"><span class="nav-number">1.3.1.</span> <span class="nav-text">使用Scroller</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过动画"><span class="nav-number">1.3.2.</span> <span class="nav-text">通过动画</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用延时策略"><span class="nav-number">1.3.3.</span> <span class="nav-text">使用延时策略</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#View的事件分发机制"><span class="nav-number">1.4.</span> <span class="nav-text">View的事件分发机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#View的滑动冲突"><span class="nav-number">1.5.</span> <span class="nav-text">View的滑动冲突</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#处理规则"><span class="nav-number">1.5.1.</span> <span class="nav-text">处理规则</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">WCXDHR</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">11.3k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

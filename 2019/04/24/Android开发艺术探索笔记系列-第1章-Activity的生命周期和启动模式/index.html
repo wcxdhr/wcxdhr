@@ -75,6 +75,8 @@
 
 
 
+  
+
 
   <link rel="alternate" href="/atom.xml" title="WCXDHR Blog" type="application/atom+xml" />
 
@@ -83,20 +85,20 @@
 
 
 
-<meta name="description" content="Activity的生命周期分析 正常情况下的生命周期如上图中心线所示。 Activity切换时，旧Activity先onPause，新Activity再启动。 onPause执行完成后新Activity才能Resume，因此onPause中不能做重量级操作。（onStop中可以做稍微重量级一些的工作，也不能太耗时） 异常情况下的生命周期异常情况指Activity被系统回收或当前设备Configur">
+<meta name="description" content="Activity的生命周期分析 正常情况下的生命周期如上图中心线所示。">
 <meta name="keywords" content="读书笔记">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android开发艺术探索笔记系列-第1章-Activity的生命周期和启动模式">
 <meta property="og:url" content="https://wcxdhr.github.io/2019/04/24/Android开发艺术探索笔记系列-第1章-Activity的生命周期和启动模式/index.html">
 <meta property="og:site_name" content="WCXDHR Blog">
-<meta property="og:description" content="Activity的生命周期分析 正常情况下的生命周期如上图中心线所示。 Activity切换时，旧Activity先onPause，新Activity再启动。 onPause执行完成后新Activity才能Resume，因此onPause中不能做重量级操作。（onStop中可以做稍微重量级一些的工作，也不能太耗时） 异常情况下的生命周期异常情况指Activity被系统回收或当前设备Configur">
+<meta property="og:description" content="Activity的生命周期分析 正常情况下的生命周期如上图中心线所示。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://wcxdhr.github.io/2019/04/24/Android开发艺术探索笔记系列-第1章-Activity的生命周期和启动模式/1555903104817.png">
 <meta property="og:image" content="https://wcxdhr.github.io/2019/04/24/Android开发艺术探索笔记系列-第1章-Activity的生命周期和启动模式/1555913057138.png">
-<meta property="og:updated_time" content="2019-04-24T08:26:18.846Z">
+<meta property="og:updated_time" content="2019-05-15T08:57:11.537Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android开发艺术探索笔记系列-第1章-Activity的生命周期和启动模式">
-<meta name="twitter:description" content="Activity的生命周期分析 正常情况下的生命周期如上图中心线所示。 Activity切换时，旧Activity先onPause，新Activity再启动。 onPause执行完成后新Activity才能Resume，因此onPause中不能做重量级操作。（onStop中可以做稍微重量级一些的工作，也不能太耗时） 异常情况下的生命周期异常情况指Activity被系统回收或当前设备Configur">
+<meta name="twitter:description" content="Activity的生命周期分析 正常情况下的生命周期如上图中心线所示。">
 <meta name="twitter:image" content="https://wcxdhr.github.io/2019/04/24/Android开发艺术探索笔记系列-第1章-Activity的生命周期和启动模式/1555903104817.png">
 
 
@@ -359,8 +361,8 @@
       
 
       
-        <h2 id="Activity的生命周期分析"><a href="#Activity的生命周期分析" class="headerlink" title="Activity的生命周期分析"></a>Activity的生命周期分析</h2><p><img src="1555903104817.png" alt=""></p>
-<h3 id="正常情况下的生命周期"><a href="#正常情况下的生命周期" class="headerlink" title="正常情况下的生命周期"></a>正常情况下的生命周期</h3><p>如上图中心线所示。</p>
+        <h2 id="Activity的生命周期分析"><a href="#Activity的生命周期分析" class="headerlink" title="Activity的生命周期分析"></a>Activity的生命周期分析</h2><img src="/2019/04/24/Android开发艺术探索笔记系列-第1章-Activity的生命周期和启动模式/1555903104817.png">
+<h3 id="正常情况下的生命周期"><a href="#正常情况下的生命周期" class="headerlink" title="正常情况下的生命周期"></a>正常情况下的生命周期</h3><p>如上图中心线所示。<a id="more"></a></p>
 <p>Activity切换时，旧Activity先onPause，新Activity再启动。</p>
 <p>onPause执行完成后新Activity才能Resume，因此onPause中不能做重量级操作。（onStop中可以做稍微重量级一些的工作，也不能太耗时）</p>
 <h3 id="异常情况下的生命周期"><a href="#异常情况下的生命周期" class="headerlink" title="异常情况下的生命周期"></a>异常情况下的生命周期</h3><p>异常情况指Activity被系统回收或当前设备Configuration发生改变。</p>
@@ -461,6 +463,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/05/15/Android开发艺术探索笔记系列-第3章-View的事件体系/" rel="prev" title="Android开发艺术探索笔记系列-第3章-View的事件体系">
+                Android开发艺术探索笔记系列-第3章-View的事件体系 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -540,7 +546,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -636,7 +642,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">9.9k</span>
+    <span title="Site words total count">11.3k</span>
   
 </div>
 
