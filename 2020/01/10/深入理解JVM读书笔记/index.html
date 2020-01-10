@@ -83,13 +83,13 @@
 
 
 
-<meta name="description" content="Java内存区域与内存溢出异常 运行时数据区域程序计数器一块较小的内存空间，可以看作当前线程所执行字节码的行号执行器。 Java虚拟机规范中唯一未规定任何OutOfMemoryError的情况的区域。 Java虚拟机栈线程私有，与线程的生命周期相同。描述Java方法执行的内存模型：每个方法在运行时都会创建一个栈帧，用于存储局部变量表、操作数栈、动态链接、方法出口等信息。每一个方法从调用到执行完成的">
+<meta name="description" content="Java内存区域与内存溢出异常 运行时数据区域程序计数器一块较小的内存空间，可以看作当前线程所执行字节码的行号执行器。 Java虚拟机规范中唯一未规定任何OutOfMemoryError的情况的区域。">
 <meta name="keywords" content="读书笔记">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深入理解JVM读书笔记">
 <meta property="og:url" content="https://wcxdhr.github.io/2020/01/10/深入理解JVM读书笔记/index.html">
 <meta property="og:site_name" content="WCXDHR Blog">
-<meta property="og:description" content="Java内存区域与内存溢出异常 运行时数据区域程序计数器一块较小的内存空间，可以看作当前线程所执行字节码的行号执行器。 Java虚拟机规范中唯一未规定任何OutOfMemoryError的情况的区域。 Java虚拟机栈线程私有，与线程的生命周期相同。描述Java方法执行的内存模型：每个方法在运行时都会创建一个栈帧，用于存储局部变量表、操作数栈、动态链接、方法出口等信息。每一个方法从调用到执行完成的">
+<meta property="og:description" content="Java内存区域与内存溢出异常 运行时数据区域程序计数器一块较小的内存空间，可以看作当前线程所执行字节码的行号执行器。 Java虚拟机规范中唯一未规定任何OutOfMemoryError的情况的区域。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://wcxdhr.github.io/2020/01/10/深入理解JVM读书笔记/1569306828310.png">
 <meta property="og:image" content="https://wcxdhr.github.io/2020/01/10/深入理解JVM读书笔记/1569311242265.png">
@@ -109,10 +109,10 @@
 <meta property="og:image" content="https://wcxdhr.github.io/2020/01/10/深入理解JVM读书笔记/1571034765227.png">
 <meta property="og:image" content="https://wcxdhr.github.io/2020/01/10/深入理解JVM读书笔记/1571038131082.png">
 <meta property="og:image" content="https://wcxdhr.github.io/2020/01/10/深入理解JVM读书笔记/1571902123343.png">
-<meta property="og:updated_time" content="2020-01-10T03:25:35.301Z">
+<meta property="og:updated_time" content="2020-01-10T03:27:58.224Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入理解JVM读书笔记">
-<meta name="twitter:description" content="Java内存区域与内存溢出异常 运行时数据区域程序计数器一块较小的内存空间，可以看作当前线程所执行字节码的行号执行器。 Java虚拟机规范中唯一未规定任何OutOfMemoryError的情况的区域。 Java虚拟机栈线程私有，与线程的生命周期相同。描述Java方法执行的内存模型：每个方法在运行时都会创建一个栈帧，用于存储局部变量表、操作数栈、动态链接、方法出口等信息。每一个方法从调用到执行完成的">
+<meta name="twitter:description" content="Java内存区域与内存溢出异常 运行时数据区域程序计数器一块较小的内存空间，可以看作当前线程所执行字节码的行号执行器。 Java虚拟机规范中唯一未规定任何OutOfMemoryError的情况的区域。">
 <meta name="twitter:image" content="https://wcxdhr.github.io/2020/01/10/深入理解JVM读书笔记/1569306828310.png">
 
 
@@ -377,7 +377,7 @@
       
         <h1 id="Java内存区域与内存溢出异常"><a href="#Java内存区域与内存溢出异常" class="headerlink" title="Java内存区域与内存溢出异常"></a>Java内存区域与内存溢出异常</h1><img src="/2020/01/10/深入理解JVM读书笔记/1569306828310.png">
 <h2 id="运行时数据区域"><a href="#运行时数据区域" class="headerlink" title="运行时数据区域"></a>运行时数据区域</h2><h3 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h3><p>一块较小的内存空间，可以看作当前线程所执行字节码的行号执行器。</p>
-<p>Java虚拟机规范中唯一未规定任何<strong>OutOfMemoryError</strong>的情况的区域。</p>
+<p>Java虚拟机规范中唯一未规定任何<strong>OutOfMemoryError</strong>的情况的区域。<a id="more"></a></p>
 <h3 id="Java虚拟机栈"><a href="#Java虚拟机栈" class="headerlink" title="Java虚拟机栈"></a>Java虚拟机栈</h3><p>线程私有，与线程的生命周期相同。描述Java方法执行的内存模型：每个方法在运行时都会创建一个栈帧，用于存储局部变量表、操作数栈、动态链接、方法出口等信息。每一个方法从调用到执行完成的过程，就对应着从入栈到出栈的过程。</p>
 <p><strong>注</strong>：通常把Java内存区分为堆内存（Heap）和栈内存（Stack），这种分法比较粗糙，这里所指的“栈”就是虚拟机栈，或虚拟机栈中局部变量表的地方。</p>
 <p><strong>两种异常</strong>：</p>
