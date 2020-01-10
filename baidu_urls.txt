@@ -1,1 +1,1 @@
-https://wcxdhr.github.io/2019/06/26/Android开发艺术探索笔记系列-第4章-View的工作原理/
+https://wcxdhr.github.io/2020/01/10/深入理解JVM读书笔记/
